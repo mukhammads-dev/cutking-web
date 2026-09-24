@@ -1,0 +1,238 @@
+/* ================================================
+   CUTKING — MYBOOKINGS.CSS
+   ================================================ */
+
+.ck-bookings-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 26px;
+  align-items: start;
+}
+
+.ck-tabs-wrap {
+  background: var(--white);
+  border: 1px solid var(--light2);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-sm);
+  overflow: hidden;
+}
+
+.ck-tabs-head {
+  border-bottom: 1px solid var(--light2);
+  background: var(--light3);
+  padding: 0 8px;
+}
+
+.ck-tabs-body { padding: 18px; }
+
+/* ---- BOOKING CARD ---- */
+.ck-booking-card {
+  border: 1px solid var(--light2);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin-bottom: 16px;
+  transition: box-shadow var(--tr);
+}
+
+.ck-booking-card:last-child { margin-bottom: 0; }
+.ck-booking-card:hover { box-shadow: var(--sh-sm); }
+
+.ck-booking-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 18px;
+  background: var(--light3);
+  border-bottom: 1px solid var(--light2);
+  flex-wrap: wrap;
+}
+
+.ck-booking-when {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.ck-booking-when svg { font-size: 17px; color: var(--coral); }
+
+.ck-booking-when .time {
+  font-family: var(--f-mono);
+  color: var(--gold-hover);
+}
+
+.ck-booking-id {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  color: var(--faint);
+}
+
+.ck-booking-items { padding: 6px 18px; }
+
+.ck-booking-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--light2);
+}
+
+.ck-booking-row:last-child { border-bottom: none; }
+
+.ck-booking-row img {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--r-sm);
+  object-fit: cover;
+  border: 1px solid var(--light2);
+  flex-shrink: 0;
+}
+
+.ck-booking-row .info { flex: 1; min-width: 0; }
+
+.ck-booking-row .nm {
+  font-size: 13.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ck-booking-row .mt {
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.ck-booking-row .calc {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--f-mono);
+  font-size: 12.5px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.ck-booking-row .calc b { color: var(--gold-hover); }
+
+.ck-booking-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--light2);
+  background: var(--white);
+  flex-wrap: wrap;
+}
+
+.ck-booking-total {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.ck-booking-total .lbl {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ck-booking-total .val {
+  font-family: var(--f-head);
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--dark);
+}
+
+.ck-booking-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ---- Side panel ---- */
+.ck-side-card {
+  background: var(--white);
+  border: 1px solid var(--light2);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-sm);
+  padding: 24px 20px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.ck-side-avatar-wrap { position: relative; display: inline-block; }
+
+.ck-side-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--light3);
+}
+
+.ck-side-badge {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  background: var(--white);
+}
+
+.ck-side-nick {
+  margin-top: 12px;
+  font-family: var(--f-head);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.ck-side-role {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.ck-side-divider {
+  height: 1px;
+  background: var(--light2);
+  margin: 18px 0;
+}
+
+.ck-side-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12.5px;
+  color: var(--muted);
+  text-align: left;
+  padding: 5px 0;
+}
+
+.ck-side-row svg { font-size: 16px; color: var(--coral); flex-shrink: 0; }
+
+.ck-side-points {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: var(--r);
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-line);
+  color: var(--gold-hover);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+@media (max-width: 980px) {
+  .ck-bookings-grid { grid-template-columns: 1fr; }
+}

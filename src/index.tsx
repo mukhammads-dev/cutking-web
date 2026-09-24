@@ -1,21 +1,39 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
-import App from "./app/App";
-import reportWebVitals from "./reportWebVitals";
-import "./css/index.css";
+import { BrowserRouter } from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
 
-ReactDOM.render(
+import App from "./app/App";
+import { store } from "./app/store";
+import GlobalProvider from "./app/context/GlobalProvider";
+import ErrorBoundary from "./app/components/common/ErrorBoundary";
+import theme from "./app/theme";
+import reportWebVitals from "./reportWebVitals";
+
+import "./styles/index.css";
+
+const container = document.getElementById("root");
+if (!container) throw new Error("Root element #root not found");
+
+const root = createRoot(container);
+
+root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+    <ErrorBoundary>
+      <Provider store={store}>
+        <GlobalProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </ThemeProvider>
+        </GlobalProvider>
+      </Provider>
+    </ErrorBoundary>
+  </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

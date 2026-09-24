@@ -1,0 +1,101 @@
+/* ================================================
+   CUTKING — APP.CSS  (layout shell)
+   ================================================ */
+
+.ck-app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.ck-app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Page header (inner pages) */
+.ck-page-head {
+  background: var(--white);
+  border-bottom: 1px solid var(--light2);
+  padding: 34px 0 30px;
+}
+
+.ck-page-head .crumb {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 8px;
+}
+
+.ck-page-head h1 {
+  font-family: var(--f-head);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  color: var(--dark);
+}
+
+.ck-page-head p {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 620px;
+}
+
+.ck-page-body {
+  padding: 34px 0 64px;
+}
+
+/* Loading state */
+.ck-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 72px 20px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Error boundary */
+.ck-crash {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px 24px;
+  text-align: center;
+  background: var(--light);
+}
+
+.ck-crash h1 {
+  font-family: var(--f-head);
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.ck-crash p {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 460px;
+}
+
+.ck-crash pre {
+  max-width: 640px;
+  width: 100%;
+  overflow-x: auto;
+  text-align: left;
+  background: var(--white);
+  border: 1px solid var(--light2);
+  border-radius: var(--r);
+  padding: 14px;
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  color: var(--red);
+}

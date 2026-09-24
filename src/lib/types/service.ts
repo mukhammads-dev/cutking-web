@@ -1,0 +1,24 @@
+import { ServiceCollection, ServiceStatus } from "../enums/service.enum";
+
+export interface Service {
+  _id: string;
+  serviceStatus: ServiceStatus;
+  serviceCollection: ServiceCollection;
+  serviceName: string;
+  servicePrice: number;
+
+  serviceDuration: number;
+  serviceDesc?: string;
+  serviceImages: string[];
+  serviceViews: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ServiceInquiry {
+  booking: string;
+  page: number;
+  limit: number;
+  serviceCollection?: ServiceCollection;
+  search?: string;
+}

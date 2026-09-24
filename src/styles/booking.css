@@ -1,0 +1,362 @@
+/* ================================================
+   CUTKING — BOOKING.CSS  (multi-step booking)
+   ================================================ */
+
+.ck-booking-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 26px;
+  align-items: start;
+}
+
+/* ---- STEPS ---- */
+.ck-steps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 26px;
+  flex-wrap: wrap;
+}
+
+.ck-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px 9px 9px;
+  background: var(--white);
+  border: 1.5px solid var(--light2);
+  border-radius: var(--r-pill);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  transition: all var(--tr);
+}
+
+.ck-step .num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--light3);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.ck-step.done {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-bg);
+}
+
+.ck-step.done .num { background: var(--green); color: var(--white); }
+
+.ck-step.current {
+  border-color: var(--coral);
+  color: var(--coral-hover);
+  background: var(--coral-bg);
+}
+
+.ck-step.current .num { background: var(--coral); color: var(--white); }
+
+.ck-step-sep {
+  width: 18px;
+  height: 1.5px;
+  background: var(--light2);
+  flex-shrink: 0;
+}
+
+/* ---- PANEL ---- */
+.ck-panel {
+  background: var(--white);
+  border: 1px solid var(--light2);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-sm);
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.ck-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--light2);
+  background: var(--light3);
+}
+
+.ck-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-head);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.ck-panel-title .idx {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--coral);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10.5px;
+  font-weight: 800;
+}
+
+.ck-panel-body { padding: 20px; }
+
+/* ---- DATE PICKER ---- */
+.ck-date-row {
+  display: flex;
+  gap: 9px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.ck-date-cell {
+  flex-shrink: 0;
+  width: 66px;
+  padding: 12px 0;
+  border-radius: var(--r);
+  border: 1.5px solid var(--light2);
+  background: var(--white);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--tr);
+}
+
+.ck-date-cell:hover {
+  border-color: var(--coral-line);
+  background: var(--coral-bg);
+}
+
+.ck-date-cell.active,
+.ck-date-cell.active:hover {
+  border-color: var(--coral);
+  background: var(--coral);
+  color: var(--white);
+  box-shadow: 0 4px 12px rgba(255, 90, 90, 0.3);
+}
+
+.ck-date-cell .wd {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ck-date-cell.active .wd { color: rgba(255, 255, 255, 0.8); }
+
+.ck-date-cell .dd {
+  font-family: var(--f-head);
+  font-size: 19px;
+  font-weight: 800;
+  margin-top: 3px;
+}
+
+.ck-date-cell .mm {
+  font-size: 9.5px;
+  color: var(--muted);
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.ck-date-cell.active .mm { color: rgba(255, 255, 255, 0.8); }
+
+/* ---- TIME SLOTS ---- */
+.ck-slot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 9px;
+}
+
+.ck-slot {
+  padding: 11px 0;
+  border-radius: var(--r);
+  border: 1.5px solid var(--light2);
+  background: var(--white);
+  font-family: var(--f-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark2);
+  cursor: pointer;
+  transition: all var(--tr);
+}
+
+.ck-slot:hover:not(:disabled) {
+  border-color: var(--coral-line);
+  background: var(--coral-bg);
+  color: var(--coral-hover);
+}
+
+.ck-slot.active,
+.ck-slot.active:hover:not(:disabled) {
+  border-color: var(--coral);
+  background: var(--coral);
+  color: var(--white);
+  box-shadow: 0 4px 12px rgba(255, 90, 90, 0.3);
+}
+
+.ck-slot:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  background: var(--light3);
+  text-decoration: line-through;
+}
+
+/* ---- MASTER PICKER ---- */
+.ck-master-pick {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 14px;
+}
+
+/* ---- SUMMARY (sidebar) ---- */
+.ck-summary {
+  position: sticky;
+  top: calc(var(--nav-h) + 18px);
+  background: var(--white);
+  border: 1px solid var(--light2);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh);
+  overflow: hidden;
+}
+
+.ck-summary-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--light2);
+  background: var(--dark);
+}
+
+.ck-summary-head h4 {
+  font-family: var(--f-head);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.ck-summary-head p {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.55);
+  margin-top: 3px;
+}
+
+.ck-summary-body { padding: 16px 20px; }
+
+.ck-summary-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--light2);
+}
+
+.ck-summary-item:last-of-type { border-bottom: none; }
+
+.ck-summary-item img {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--r-sm);
+  object-fit: cover;
+  border: 1px solid var(--light2);
+  flex-shrink: 0;
+}
+
+.ck-summary-item .info { flex: 1; min-width: 0; }
+
+.ck-summary-item .nm {
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ck-summary-item .mt {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.ck-summary-item .pr {
+  font-family: var(--f-mono);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--gold-hover);
+  white-space: nowrap;
+}
+
+.ck-summary-facts {
+  margin: 14px 0;
+  padding: 14px 0;
+  border-top: 1px solid var(--light2);
+  border-bottom: 1px solid var(--light2);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.ck-summary-fact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12.5px;
+}
+
+.ck-summary-fact .k {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+}
+
+.ck-summary-fact .k svg { font-size: 15px; color: var(--coral); }
+
+.ck-summary-fact .v {
+  font-weight: 700;
+  color: var(--dark);
+  text-align: right;
+}
+
+.ck-summary-fact .v.empty { color: var(--faint); font-weight: 500; }
+
+.ck-summary-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.ck-summary-total .lbl {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ck-summary-total .val {
+  font-family: var(--f-head);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--dark);
+}
+
+.ck-summary-note { margin-bottom: 14px; }
+
+@media (max-width: 1000px) {
+  .ck-booking-grid { grid-template-columns: 1fr; }
+  .ck-summary { position: static; }
+}

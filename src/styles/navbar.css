@@ -1,0 +1,360 @@
+/* ================================================
+   CUTKING — NAVBAR.CSS
+   ================================================ */
+
+.ck-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  background: rgba(250, 249, 247, 0.88);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--light2);
+}
+
+.ck-navbar.on-home {
+  background: rgba(250, 249, 247, 0.72);
+}
+
+.ck-navbar-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+/* ---- LOGO ---- */
+.ck-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ck-logo-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--coral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(255, 90, 90, 0.3);
+}
+
+.ck-logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.ck-logo-name {
+  font-family: var(--f-head);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--dark);
+  letter-spacing: 0.4px;
+}
+
+.ck-logo-name em {
+  font-style: normal;
+  color: var(--coral);
+}
+
+.ck-logo-tag {
+  font-size: 8.5px;
+  letter-spacing: 2.4px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+/* ---- LINKS ---- */
+.ck-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.ck-nav-link {
+  position: relative;
+  padding: 9px 15px;
+  border-radius: var(--r);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--muted);
+  transition: all var(--tr);
+  white-space: nowrap;
+}
+
+.ck-nav-link:hover {
+  color: var(--dark);
+  background: var(--light3);
+}
+
+.ck-nav-link.active {
+  color: var(--dark);
+  font-weight: 700;
+}
+
+.ck-nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--coral);
+}
+
+/* ---- RIGHT SIDE ---- */
+.ck-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.ck-nav-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--light2);
+  cursor: pointer;
+  transition: border-color var(--tr);
+}
+
+.ck-nav-avatar:hover {
+  border-color: var(--coral-line);
+}
+
+/* ---- BOOKING CART ---- */
+.ck-cart-menu {
+  width: 360px;
+  max-width: calc(100vw - 32px);
+}
+
+.ck-cart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--light2);
+  background: var(--light3);
+}
+
+.ck-cart-title {
+  font-family: var(--f-head);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ck-cart-list {
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 6px 0;
+}
+
+.ck-cart-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  transition: background var(--tr);
+}
+
+.ck-cart-row:hover {
+  background: var(--light3);
+}
+
+.ck-cart-img {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--r-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--light2);
+}
+
+.ck-cart-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ck-cart-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ck-cart-meta {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.ck-cart-qty {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.ck-cart-qty span {
+  min-width: 22px;
+  text-align: center;
+  font-family: var(--f-mono);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.ck-cart-foot {
+  padding: 14px 18px;
+  border-top: 1px solid var(--light2);
+  background: var(--white);
+}
+
+.ck-cart-sum {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.ck-cart-sum.total {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--dark);
+  font-family: var(--f-head);
+  margin-bottom: 14px;
+}
+
+.ck-cart-empty {
+  padding: 34px 18px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ---- MOBILE ---- */
+.ck-burger { display: none; }
+
+@media (max-width: 980px) {
+  .ck-nav-links { display: none; }
+  .ck-burger { display: inline-flex; }
+}
+
+.ck-drawer {
+  width: 268px;
+  padding: 18px 14px;
+}
+
+.ck-drawer .ck-nav-link {
+  display: block;
+  padding: 12px 14px;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.ck-drawer .ck-nav-link.active {
+  background: var(--coral-bg);
+  color: var(--coral-hover);
+}
+
+.ck-drawer .ck-nav-link.active::after {
+  display: none;
+}
+
+/* ---- NAVBAR OVER A DARK HERO ---- */
+html.ck-hero-over .ck-navbar.on-home {
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: background var(--tr), border-color var(--tr);
+}
+
+html.ck-hero-over .ck-navbar.on-home .ck-nav-link {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+html.ck-hero-over .ck-navbar.on-home .ck-nav-link:hover {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+html.ck-hero-over .ck-navbar.on-home .ck-nav-link.active {
+  color: var(--white);
+}
+
+html.ck-hero-over .ck-navbar.on-home .ck-logo-name {
+  color: var(--white);
+}
+
+html.ck-hero-over .ck-navbar.on-home .ck-logo-tag {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+html.ck-hero-over .ck-navbar.on-home .ck-nav-right .MuiIconButton-root,
+html.ck-hero-over .ck-navbar.on-home .ck-burger {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+html.ck-hero-over .ck-navbar.on-home .ck-nav-avatar {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+html.ck-hero-over.ck-hero-scrolled .ck-navbar.on-home {
+  background: rgba(250, 249, 247, 0.92);
+  border-bottom-color: var(--light2);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+}
+
+html.ck-hero-over.ck-hero-scrolled .ck-navbar.on-home .ck-nav-link {
+  color: var(--muted);
+}
+
+html.ck-hero-over.ck-hero-scrolled .ck-navbar.on-home .ck-nav-link:hover,
+html.ck-hero-over.ck-hero-scrolled .ck-navbar.on-home .ck-nav-link.active {
+  color: var(--dark);
+}
+
+html.ck-hero-over.ck-hero-scrolled .ck-navbar.on-home .ck-nav-link:hover {
+  background: var(--light3);
+}
+
+html.ck-hero-over.ck-hero-scrolled .ck-navbar.on-home .ck-logo-name {
+  color: var(--dark);
+}
+
+html.ck-hero-over.ck-hero-scrolled .ck-navbar.on-home .ck-logo-tag {
+  color: var(--muted);
+}
+
+html.ck-hero-over.ck-hero-scrolled .ck-navbar.on-home .ck-nav-right .MuiIconButton-root,
+html.ck-hero-over.ck-hero-scrolled .ck-navbar.on-home .ck-burger {
+  color: var(--dark2);
+}
+
+html.ck-hero-over.ck-hero-scrolled .ck-navbar.on-home .ck-nav-avatar {
+  border-color: var(--light2);
+}
+
+html.ck-hero-over .ck-navbar.on-home .ck-nav-right .MuiButton-text {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+html.ck-hero-over.ck-hero-scrolled .ck-navbar.on-home .ck-nav-right .MuiButton-text {
+  color: var(--muted) !important;
+}

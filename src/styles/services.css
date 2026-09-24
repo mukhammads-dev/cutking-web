@@ -1,0 +1,242 @@
+/* ================================================
+   CUTKING — SERVICES.CSS
+   ================================================ */
+
+/* ---- FILTER BAR ---- */
+.ck-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 14px 16px;
+  background: var(--white);
+  border: 1px solid var(--light2);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-sm);
+  margin-bottom: 26px;
+}
+
+.ck-chip-row {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 200px;
+}
+
+.ck-chip {
+  padding: 7px 14px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--light2);
+  background: var(--white);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--tr);
+  white-space: nowrap;
+}
+
+.ck-chip:hover {
+  border-color: var(--coral-line);
+  color: var(--coral-hover);
+  background: var(--coral-bg);
+}
+
+.ck-chip.active {
+  background: var(--coral);
+  border-color: var(--coral);
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(255, 90, 90, 0.28);
+}
+
+.ck-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--light3);
+  border: 1.5px solid var(--light2);
+  border-radius: var(--r);
+  padding: 0 6px 0 12px;
+  min-width: 240px;
+  transition: border-color var(--tr), box-shadow var(--tr);
+}
+
+.ck-search-box:focus-within {
+  border-color: var(--coral);
+  background: var(--white);
+  box-shadow: 0 0 0 3px var(--coral-bg);
+}
+
+.ck-search-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 10px 0;
+  font-size: 13.5px;
+  color: var(--dark);
+  min-width: 0;
+}
+
+.ck-search-box input::placeholder { color: #b7b2a9; }
+
+.ck-search-box input::-webkit-search-cancel-button,
+.ck-search-box input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+.ck-search-box input::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.ck-filter-bar {
+  scroll-margin-top: calc(var(--nav-h) + 18px);
+}
+
+.ck-sort-group {
+  display: flex;
+  gap: 4px;
+  background: var(--light3);
+  border-radius: var(--r);
+  padding: 3px;
+}
+
+.ck-sort-btn {
+  padding: 7px 13px;
+  border: none;
+  background: transparent;
+  border-radius: var(--r-sm);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all var(--tr);
+  white-space: nowrap;
+}
+
+.ck-sort-btn:hover { color: var(--dark); }
+
+.ck-sort-btn.active {
+  background: var(--white);
+  color: var(--dark);
+  box-shadow: var(--sh-sm);
+}
+
+.ck-pagination-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+}
+
+/* ---- SERVICE DETAIL ---- */
+.ck-detail-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 36px;
+  align-items: start;
+}
+
+.ck-detail-gallery {
+  background: var(--white);
+  border: 1px solid var(--light2);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--sh-sm);
+}
+
+.ck-detail-main-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--light3);
+}
+
+.ck-detail-thumbs {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid var(--light2);
+  overflow-x: auto;
+}
+
+.ck-detail-thumb {
+  width: 72px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+  border: 2px solid transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color var(--tr);
+}
+
+.ck-detail-thumb.active { border-color: var(--coral); }
+
+.ck-detail-info h1 {
+  font-family: var(--f-head);
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin: 12px 0 14px;
+}
+
+.ck-detail-desc {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.ck-detail-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 24px 0;
+}
+
+.ck-meta-box {
+  flex: 1;
+  min-width: 130px;
+  background: var(--white);
+  border: 1px solid var(--light2);
+  border-radius: var(--r);
+  padding: 14px 16px;
+}
+
+.ck-meta-box .lbl {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.ck-meta-box .val {
+  font-family: var(--f-head);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.ck-meta-box .val.price { color: var(--gold-hover); font-family: var(--f-mono); }
+
+.ck-detail-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+@media (max-width: 900px) {
+  .ck-detail-grid { grid-template-columns: 1fr; gap: 24px; }
+  .ck-detail-info h1 { font-size: 25px; }
+}

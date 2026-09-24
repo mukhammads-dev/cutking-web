@@ -1,0 +1,30 @@
+/* ================================================
+   CUTKING — MASTERS.CSS
+   ================================================ */
+
+.ck-masters-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.ck-masters-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 18px;
+  border-radius: var(--r-lg);
+  background: var(--amber-bg);
+  border: 1px solid rgba(201, 130, 26, 0.24);
+  color: var(--amber);
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.ck-masters-note svg { flex-shrink: 0; margin-top: 1px; }
+.ck-masters-note b { display: block; margin-bottom: 3px; color: #8f5c10; }
+
+@media (max-width: 1100px) { .ck-masters-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 860px) { .ck-masters-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .ck-masters-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }

@@ -1,0 +1,150 @@
+/* ================================================
+   CUTKING — AUTH.CSS  (login / signup modal)
+   ================================================ */
+
+.ck-auth-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 760px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 32px);
+  overflow: hidden;
+  background: var(--white);
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-lg);
+  display: flex;
+  outline: none;
+}
+
+.ck-auth-visual {
+  position: relative;
+  width: 44%;
+  flex-shrink: 0;
+  background: var(--dark);
+  padding: 38px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.ck-auth-visual::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -70px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: rgba(255, 90, 90, 0.18);
+}
+
+.ck-auth-visual::after {
+  content: "";
+  position: absolute;
+  bottom: -90px;
+  left: -70px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: rgba(212, 160, 23, 0.14);
+}
+
+.ck-auth-visual > * { position: relative; z-index: 1; }
+
+.ck-auth-visual .ck-logo-name { color: var(--white); }
+.ck-auth-visual .ck-logo-tag { color: rgba(255, 255, 255, 0.45); }
+
+.ck-auth-quote h3 {
+  font-family: var(--f-head);
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+}
+
+.ck-auth-quote p {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.ck-auth-perks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ck-auth-perk {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.ck-auth-perk svg { font-size: 16px; color: var(--coral); flex-shrink: 0; }
+
+.ck-auth-form {
+  flex: 1;
+  padding: 38px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.ck-auth-form h2 {
+  font-family: var(--f-head);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.ck-auth-form .sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 6px;
+  margin-bottom: 24px;
+}
+
+.ck-auth-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ck-auth-switch {
+  margin-top: 20px;
+  font-size: 12.5px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.ck-auth-switch button {
+  border: none;
+  background: none;
+  color: var(--coral);
+  font-weight: 700;
+  font-size: 12.5px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.ck-auth-switch button:hover { text-decoration: underline; }
+
+.ck-auth-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+}
+
+@media (max-width: 760px) {
+  .ck-auth-visual { display: none; }
+  .ck-auth-form { padding: 44px 26px 30px; }
+}

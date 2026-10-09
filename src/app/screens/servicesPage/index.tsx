@@ -5,6 +5,7 @@ import Container from "@mui/material/Container";
 import ServicesList from "./ServicesList";
 import ChosenService from "./ChosenService";
 import ShopAddress from "../../components/common/ShopAddress";
+import { useLanguage } from "../../hooks/useLanguage";
 import { CartItem } from "../../../lib/types/search";
 
 import "../../../styles/services.css";
@@ -16,16 +17,15 @@ interface ServicesPageProps {
 }
 
 export default function ServicesPage({ onAdd }: ServicesPageProps) {
+  const { t } = useLanguage();
+
   return (
     <div className="services-page">
       <div className="ck-page-head">
         <Container maxWidth="lg">
-          <div className="crumb">Services</div>
-          <h1>Our services</h1>
-          <p>
-            Haircuts, beard, colour and packages. Add what you want — you'll
-            pick the time next.
-          </p>
+          <div className="crumb">{t("services.crumb")}</div>
+          <h1>{t("services.title")}</h1>
+          <p>{t("services.desc")}</p>
         </Container>
       </div>
 

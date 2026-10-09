@@ -9,6 +9,7 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 
 import Settings from "./Settings";
 import { useGlobals } from "../../hooks/useGlobals";
+import { useLanguage } from "../../hooks/useLanguage";
 import { buildImageUrl } from "../../../lib/config";
 import { MemberType } from "../../../lib/enums/member.enum";
 
@@ -16,6 +17,7 @@ import "../../../styles/profile.css";
 import "../../../styles/myBookings.css";
 
 export default function ProfilePage() {
+  const { t, te } = useLanguage();
   const { authMember } = useGlobals();
   const navigate = useNavigate();
 
@@ -28,9 +30,9 @@ export default function ProfilePage() {
     <div className="profile-page">
       <div className="ck-page-head">
         <Container maxWidth="lg">
-          <div className="crumb">My account</div>
-          <h1>My profile</h1>
-          <p>We use these details for your bookings.</p>
+          <div className="crumb">{t("profile.crumb")}</div>
+          <h1>{t("profile.title")}</h1>
+          <p>{t("profile.desc")}</p>
         </Container>
       </div>
 
@@ -60,24 +62,24 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="ck-side-nick">{authMember?.memberNick}</div>
-                <div className="ck-side-role">{authMember?.memberType}</div>
+                <div className="ck-side-role">{te(authMember?.memberType)}</div>
 
                 <div className="ck-side-divider" />
 
                 <div className="ck-side-row">
                   <PhoneIcon fontSize="inherit" />
-                  {authMember?.memberPhone || "No phone number"}
+                  {authMember?.memberPhone || t("myBookings.noPhone")}
                 </div>
                 <div className="ck-side-row">
                   <PlaceIcon fontSize="inherit" />
-                  {authMember?.memberAddress || "No address"}
+                  {authMember?.memberAddress || t("myBookings.noAddress")}
                 </div>
 
                 <div className="ck-side-divider" />
 
                 <div className="ck-side-points">
                   <StarBorderIcon fontSize="small" />
-                  {authMember?.memberPoints ?? 0} pts
+                  {authMember?.memberPoints ?? 0} {t("home.topUsers.pts")}
                 </div>
 
                 <Button
@@ -87,7 +89,7 @@ export default function ProfilePage() {
                   sx={{ mt: 2 }}
                   onClick={() => navigate("/my-bookings")}
                 >
-                  My bookings
+                  {t("profile.myBookingsBtn")}
                 </Button>
               </div>
 
@@ -103,7 +105,7 @@ export default function ProfilePage() {
                       marginBottom: 8,
                     }}
                   >
-                    About
+                    {t("profile.about")}
                   </div>
                   <p style={{ fontSize: 13, lineHeight: 1.65, color: "var(--muted)" }}>
                     {authMember.memberDesc}

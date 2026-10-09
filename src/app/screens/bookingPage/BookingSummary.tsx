@@ -18,6 +18,7 @@ import {
   formatDayMonth,
   formatDuration,
 } from "../../../lib/utils/date";
+import { useLanguage } from "../../hooks/useLanguage";
 
 interface BookingSummaryProps {
   cartItems: CartItem[];
@@ -48,6 +49,8 @@ export default function BookingSummary(props: BookingSummaryProps) {
     submitting,
   } = props;
 
+  const { t, lang } = useLanguage();
+
   const ready =
     cartItems.length > 0 && Boolean(master) && Boolean(date) && Boolean(time);
 
@@ -56,14 +59,14 @@ export default function BookingSummary(props: BookingSummaryProps) {
   return (
     <aside className="ck-summary">
       <div className="ck-summary-head">
-        <h4>Your booking</h4>
-        <p>Check before you confirm</p>
+        <h4>{t("bookingSummary.title")}</h4>
+        <p>{t("bookingSummary.subtitle")}</p>
       </div>
 
       <div className="ck-summary-body">
         {cartItems.length === 0 ? (
           <p style={{ fontSize: 13, color: "var(--muted)", padding: "8px 0 14px" }}>
-            Nothing selected yet. Add a service to start.
+            {t("bookingSummary.empty")}
           </p>
         ) : (
           cartItems.map((item) => (
@@ -88,34 +91,36 @@ export default function BookingSummary(props: BookingSummaryProps) {
         <div className="ck-summary-facts">
           <div className="ck-summary-fact">
             <span className="k">
-              <PersonOutlineIcon fontSize="inherit" /> Barber
+              <PersonOutlineIcon fontSize="inherit" /> {t("bookingSummary.barber")}
             </span>
             <span className={master ? "v" : "v empty"}>
-              {master ? master.memberNick : "not selected"}
+              {master ? master.memberNick : t("common.notSelected")}
             </span>
           </div>
 
           <div className="ck-summary-fact">
             <span className="k">
-              <CalendarMonthIcon fontSize="inherit" /> Date
+              <CalendarMonthIcon fontSize="inherit" /> {t("bookingSummary.date")}
             </span>
             <span className={date ? "v" : "v empty"}>
-              {date ? formatDayMonth(date) : "not selected"}
+              {date ? formatDayMonth(date, lang) : t("common.notSelected")}
             </span>
           </div>
 
           <div className="ck-summary-fact">
             <span className="k">
-              <ScheduleIcon fontSize="inherit" /> Time
+              <ScheduleIcon fontSize="inherit" /> {t("bookingSummary.time")}
             </span>
             <span className={time ? "v" : "v empty"}>
-              {time ? `${time}${endTime ? ` — ${endTime}` : ""}` : "not selected"}
+              {time
+                ? `${time}${endTime ? ` — ${endTime}` : ""}`
+                : t("common.notSelected")}
             </span>
           </div>
 
           <div className="ck-summary-fact">
             <span className="k">
-              <TimelapseIcon fontSize="inherit" /> Duration
+              <TimelapseIcon fontSize="inherit" /> {t("bookingSummary.duration")}
             </span>
             <span className={totalDuration ? "v" : "v empty"}>
               {totalDuration ? formatDuration(totalDuration) : "—"}
@@ -125,8 +130,8 @@ export default function BookingSummary(props: BookingSummaryProps) {
 
         <div className="ck-summary-note">
           <TextField
-            label="Note (optional)"
-            placeholder="e.g. short on the sides, longer on top"
+            label={t("bookingSummary.note")}
+            placeholder={t("bookingSummary.notePlaceholder")}
             value={note}
             onChange={(e) => onNoteChange(e.target.value)}
             multiline
@@ -137,7 +142,7 @@ export default function BookingSummary(props: BookingSummaryProps) {
         </div>
 
         <div className="ck-summary-total">
-          <span className="lbl">Total</span>
+          <span className="lbl">{t("bookingSummary.total")}</span>
           <span className="val">{formatPrice(totalPrice)}</span>
         </div>
 
@@ -149,7 +154,7 @@ export default function BookingSummary(props: BookingSummaryProps) {
           startIcon={<EventAvailableIcon />}
           onClick={onSubmit}
         >
-          {submitting ? "Sending…" : "Confirm booking"}
+          {submitting ? t("bookingSummary.sending") : t("bookingSummary.confirm")}
         </Button>
 
         {!ready && cartItems.length > 0 ? (
@@ -161,7 +166,7 @@ export default function BookingSummary(props: BookingSummaryProps) {
               textAlign: "center",
             }}
           >
-            Choose a barber, a date and a time
+            {t("bookingSummary.helper")}
           </p>
         ) : null}
       </div>

@@ -12,9 +12,11 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 
 import Logo from "../headers/Logo";
 import { SHOP, workingHours } from "../../../lib/data/shop";
+import { useLanguage } from "../../hooks/useLanguage";
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer className="ck-footer">
@@ -22,10 +24,7 @@ export default function Footer() {
         <div className="ck-footer-grid">
           <div className="ck-footer-brand">
             <Logo static />
-            <p className="ck-footer-about">
-              Book online, arrive at your time, sit straight down. No queue,
-              no guessing.
-            </p>
+            <p className="ck-footer-about">{t("footer.about")}</p>
             <div className="ck-footer-socials">
               <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">
                 <InstagramIcon fontSize="small" />
@@ -43,16 +42,16 @@ export default function Footer() {
           </div>
 
           <div className="ck-footer-col">
-            <h5>Pages</h5>
-            <Link to="/">Home</Link>
-            <Link to="/services">Services</Link>
-            <Link to="/masters">Barbers</Link>
-            <Link to="/booking">Book</Link>
-            <Link to="/help">Help</Link>
+            <h5>{t("footer.pages")}</h5>
+            <Link to="/">{t("nav.home")}</Link>
+            <Link to="/services">{t("nav.services")}</Link>
+            <Link to="/masters">{t("nav.masters")}</Link>
+            <Link to="/booking">{t("nav.booking")}</Link>
+            <Link to="/help">{t("nav.help")}</Link>
           </div>
 
           <div className="ck-footer-col">
-            <h5>Opening hours</h5>
+            <h5>{t("footer.hours")}</h5>
             <ul>
               {workingHours.map((row) => (
                 <li key={row.day}>
@@ -63,7 +62,7 @@ export default function Footer() {
           </div>
 
           <div className="ck-footer-col ck-footer-contact">
-            <h5>Contact</h5>
+            <h5>{t("footer.contact")}</h5>
             <ul>
               <li>
                 <PhoneIcon fontSize="small" /> {SHOP.phone}
@@ -75,7 +74,7 @@ export default function Footer() {
                 <MailOutlineIcon fontSize="small" /> {SHOP.email}
               </li>
               <li>
-                <ScheduleIcon fontSize="small" /> Every day 09:00 — 21:00
+                <ScheduleIcon fontSize="small" /> {t("footer.everyday")}
               </li>
             </ul>
           </div>
@@ -83,7 +82,7 @@ export default function Footer() {
 
         <div className="ck-footer-bottom">
           <span>
-            © {year} {SHOP.name}. All rights reserved.
+            © {year} {SHOP.name}. {t("footer.rights")}
           </span>
           <span>Busan, South Korea</span>
         </div>

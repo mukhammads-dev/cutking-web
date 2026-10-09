@@ -8,6 +8,7 @@ import DirectionsSubwayIcon from "@mui/icons-material/DirectionsSubway";
 import NearMeIcon from "@mui/icons-material/NearMe";
 
 import useReveal from "../../hooks/useReveal";
+import { useLanguage } from "../../hooks/useLanguage";
 import { SHOP, workingHours } from "../../../lib/data/shop";
 
 const MAP_EMBED = `https://www.google.com/maps?q=${encodeURIComponent(
@@ -20,16 +21,15 @@ const MAP_DIRECTIONS = `https://www.google.com/maps/dir/?api=1&destination=${enc
 
 export default function ShopAddress() {
   const { ref, revealClass } = useReveal<HTMLElement>();
+  const { t } = useLanguage();
 
   return (
     <section className={`ck-section ck-address ${revealClass}`} ref={ref}>
       <Container maxWidth="lg">
         <div className="section-head">
-          <span className="section-label">Location</span>
-          <h2 className="section-title">How to find us</h2>
-          <p className="section-sub">
-            Two minutes from the beach, four from the station.
-          </p>
+          <span className="section-label">{t("address.label")}</span>
+          <h2 className="section-title">{t("address.title")}</h2>
+          <p className="section-sub">{t("address.subtitle")}</p>
         </div>
 
         <div className="ck-address-card">
@@ -39,7 +39,7 @@ export default function ShopAddress() {
                 <PlaceIcon fontSize="small" />
               </span>
               <div>
-                <div className="lbl">Address</div>
+                <div className="lbl">{t("address.address")}</div>
                 <div className="val">{SHOP.addressLine1}</div>
                 <div className="val muted">{SHOP.addressLine2}</div>
               </div>
@@ -50,7 +50,7 @@ export default function ShopAddress() {
                 <DirectionsSubwayIcon fontSize="small" />
               </span>
               <div>
-                <div className="lbl">Getting here</div>
+                <div className="lbl">{t("address.gettingHere")}</div>
                 <div className="val">{SHOP.nearest}</div>
               </div>
             </div>
@@ -60,7 +60,7 @@ export default function ShopAddress() {
                 <ScheduleIcon fontSize="small" />
               </span>
               <div>
-                <div className="lbl">Opening hours</div>
+                <div className="lbl">{t("address.openingHours")}</div>
                 {workingHours.map((row) => (
                   <div key={row.day} className="val muted">
                     {row.day} · {row.hours}
@@ -74,7 +74,7 @@ export default function ShopAddress() {
                 <PhoneIcon fontSize="small" />
               </span>
               <div>
-                <div className="lbl">Phone</div>
+                <div className="lbl">{t("address.phone")}</div>
                 <a className="val link" href={`tel:${SHOP.phone.replace(/\s/g, "")}`}>
                   {SHOP.phone}
                 </a>
@@ -89,7 +89,7 @@ export default function ShopAddress() {
               rel="noreferrer"
               sx={{ mt: 1 }}
             >
-              Get directions
+              {t("address.getDirections")}
             </Button>
           </div>
 

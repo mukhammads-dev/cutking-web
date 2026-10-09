@@ -15,6 +15,8 @@ import {
   toIsoDate,
   weekdayShort,
 } from "../../../lib/utils/date";
+import { MONTHS_SHORT } from "../../../lib/i18n/dictionary";
+import { useLanguage } from "../../hooks/useLanguage";
 
 const actionDispatch = (dispatch: Dispatch) => ({
   setSelectedDate: (date: string | null) => dispatch(setSelectedDate(date)),
@@ -32,12 +34,8 @@ const dateTimeRetriever = createSelector(
   })
 );
 
-const MONTHS_SHORT = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-];
-
 export default function SelectDateTime() {
+  const { t, lang } = useLanguage();
   const { setSelectedDate, setSelectedTime } = actionDispatch(useDispatch());
   const { selectedDate, selectedTime, busyTimes } =
     useSelector(dateTimeRetriever);
@@ -46,17 +44,19 @@ export default function SelectDateTime() {
 
   const slots = useMemo(() => buildTimeSlots(selectedDate), [selectedDate]);
 
+  const monthsShort = MONTHS_SHORT[lang];
+
   return (
     <div className="ck-panel">
       <div className="ck-panel-head">
         <div className="ck-panel-title">
           <span className="idx">3</span>
-          Date and time
+          {t("booking.dateAndTime")}
         </div>
       </div>
 
       <div className="ck-panel-body">
-        <div className="ck-date-row" role="group" aria-label="Choose a date">
+        <div className="ck-date-row" role="group" aria-label={t("booking.dateAndTime")}>
           {days.map((day) => {
             const iso = toIsoDate(day);
             const active = selectedDate === iso;
@@ -68,9 +68,9 @@ export default function SelectDateTime() {
                 onClick={() => setSelectedDate(iso)}
                 aria-pressed={active}
               >
-                <div className="wd">{weekdayShort(day)}</div>
+                <div className="wd">{weekdayShort(day, lang)}</div>
                 <div className="dd">{day.getDate()}</div>
-                <div className="mm">{MONTHS_SHORT[day.getMonth()]}</div>
+                <div className="mm">{monthsShort[day.getMonth()]}</div>
               </button>
             );
           })}
@@ -79,14 +79,14 @@ export default function SelectDateTime() {
         <div style={{ marginTop: 22 }}>
           {!selectedDate ? (
             <p style={{ fontSize: 13, color: "var(--muted)" }}>
-              Choose a day first to see free times.
+              {t("booking.chooseDayFirst")}
             </p>
           ) : slots.length === 0 ? (
             <p style={{ fontSize: 13, color: "var(--muted)" }}>
-              No free times left this day. Try another.
+              {t("booking.noFreeTimes")}
             </p>
           ) : (
-            <div className="ck-slot-grid" role="group" aria-label="Choose a time">
+            <div className="ck-slot-grid" role="group" aria-label={t("booking.dateAndTime")}>
               {slots.map((slot) => {
                 const busy = busyTimes.includes(slot);
                 const active = selectedTime === slot;

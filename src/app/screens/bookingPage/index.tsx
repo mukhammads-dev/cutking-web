@@ -14,6 +14,7 @@ import EmptyState from "../../components/common/EmptyState";
 import { setBookingMasters, resetBookingSelection } from "./slice";
 import { useAppSelector } from "../../hooks";
 import { useGlobals } from "../../hooks/useGlobals";
+import { useLanguage } from "../../hooks/useLanguage";
 
 import MemberService from "../../services/MemberService";
 import BookingService from "../../services/BookingService";
@@ -56,6 +57,7 @@ export default function BookingPage(props: BookingPageProps) {
     onRequireAuth,
   } = props;
 
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { setBookingMasters, resetBookingSelection } = actionDispatch(
     useDispatch()
@@ -121,7 +123,7 @@ export default function BookingPage(props: BookingPageProps) {
 
       setBookingBuilder(new Date());
 
-      await sweetTopSuccessAlert("Booking received", 1600);
+      await sweetTopSuccessAlert(t("booking.received"), 1600);
       navigate("/my-bookings");
     } catch (err) {
       await sweetErrorHandling(err);
@@ -141,11 +143,9 @@ export default function BookingPage(props: BookingPageProps) {
     <div className="booking-page">
       <div className="ck-page-head">
         <Container maxWidth="lg">
-          <div className="crumb">Booking</div>
-          <h1>Book your visit</h1>
-          <p>
-            Choose a service, a barber and a time. We'll confirm your booking.
-          </p>
+          <div className="crumb">{t("booking.crumb")}</div>
+          <h1>{t("booking.title")}</h1>
+          <p>{t("booking.desc")}</p>
         </Container>
       </div>
 
@@ -153,29 +153,29 @@ export default function BookingPage(props: BookingPageProps) {
         <Container maxWidth="lg">
           <div className="ck-steps">
             <div className={stepClass(step1Done, !step1Done)}>
-              <span className="num">1</span> Service
+              <span className="num">1</span> {t("booking.stepService")}
             </div>
             <span className="ck-step-sep" />
             <div className={stepClass(step2Done, step1Done && !step2Done)}>
-              <span className="num">2</span> Barber
+              <span className="num">2</span> {t("booking.stepBarber")}
             </div>
             <span className="ck-step-sep" />
             <div className={stepClass(step3Done, step2Done && !step3Done)}>
-              <span className="num">3</span> Date & time
+              <span className="num">3</span> {t("booking.stepDateTime")}
             </div>
           </div>
 
           {cartItems.length === 0 ? (
             <EmptyState
-              title="Nothing selected yet"
-              text="Choose a service first, then choose a time."
+              title={t("booking.emptyTitle")}
+              text={t("booking.emptyText")}
               action={
                 <Button
                   variant="contained"
                   endIcon={<ArrowForwardIcon />}
                   onClick={() => navigate("/services")}
                 >
-                  See services
+                  {t("booking.seeServices")}
                 </Button>
               }
             />
@@ -186,7 +186,7 @@ export default function BookingPage(props: BookingPageProps) {
                   <div className="ck-panel-head">
                     <div className="ck-panel-title">
                       <span className="idx">1</span>
-                      Selected services ({cartItems.length})
+                      {t("booking.selectedServices")} ({cartItems.length})
                     </div>
                     <Button
                       size="small"
@@ -194,7 +194,7 @@ export default function BookingPage(props: BookingPageProps) {
                       sx={{ color: "var(--muted)" }}
                       onClick={() => navigate("/services")}
                     >
-                      Add more
+                      {t("booking.addMore")}
                     </Button>
                   </div>
                   <div className="ck-panel-body">

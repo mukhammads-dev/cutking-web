@@ -7,6 +7,7 @@ import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 
 import useReveal from "../../hooks/useReveal";
+import { useLanguage } from "../../hooks/useLanguage";
 
 const VIDEO_HD = "/video/cutking.mp4";
 const VIDEO_SD = "/video/cutking-sd.mp4";
@@ -18,6 +19,7 @@ const matches = (query: string): boolean => {
 };
 
 export default function Showcase() {
+  const { t } = useLanguage();
   const { ref, revealClass } = useReveal<HTMLElement>();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const navigate = useNavigate();
@@ -50,9 +52,9 @@ export default function Showcase() {
     <section className={`ck-section alt ck-showcase ${revealClass}`} ref={ref}>
       <Container maxWidth="lg">
         <div className="section-head">
-          <span className="section-label">Our shop</span>
-          <h2 className="section-title">Inside CutKing</h2>
-          <p className="section-sub">Two minutes from Haeundae beach.</p>
+          <span className="section-label">{t("home.showcase.label")}</span>
+          <h2 className="section-title">{t("home.showcase.heading")}</h2>
+          <p className="section-sub">{t("home.showcase.sub")}</p>
         </div>
 
         <div className="ck-video-frame">
@@ -82,14 +84,14 @@ export default function Showcase() {
 
           <div className="ck-video-overlay">
             <div className="ck-video-copy">
-              <h3>Your chair is ready.</h3>
-              <p>Pick a barber and a time. We handle the rest.</p>
+              <h3>{t("home.showcase.chairReady")}</h3>
+              <p>{t("home.showcase.handleRest")}</p>
               <Button
                 variant="contained"
                 startIcon={<EventAvailableIcon />}
                 onClick={() => navigate("/booking")}
               >
-                Book now
+                {t("home.showcase.bookNow")}
               </Button>
             </div>
 
@@ -98,7 +100,9 @@ export default function Showcase() {
                 type="button"
                 className="ck-video-btn"
                 onClick={togglePlay}
-                aria-label={playing ? "Pause video" : "Play video"}
+                aria-label={
+                  playing ? t("home.showcase.pauseVideo") : t("home.showcase.playVideo")
+                }
               >
                 {playing ? (
                   <PauseRoundedIcon fontSize="small" />

@@ -15,10 +15,11 @@ import Loader from "../../components/common/Loader";
 import EmptyState from "../../components/common/EmptyState";
 
 import CuttingService from "../../services/CuttingService";
+import { useLanguage } from "../../hooks/useLanguage";
 import { Service } from "../../../lib/types/service";
 import { CartItem } from "../../../lib/types/search";
 import { buildImageUrl } from "../../../lib/config";
-import { formatPrice, humanizeEnum } from "../../../lib/utils/format";
+import { formatPrice } from "../../../lib/utils/format";
 import { formatDuration } from "../../../lib/utils/date";
 import { sweetTopSmallSuccessAlert } from "../../../lib/sweetAlert";
 
@@ -36,6 +37,7 @@ interface ChosenServiceProps {
 }
 
 export default function ChosenService({ onAdd }: ChosenServiceProps) {
+  const { t, te } = useLanguage();
   const { serviceId } = useParams<{ serviceId: string }>();
   const navigate = useNavigate();
 
@@ -79,7 +81,7 @@ export default function ChosenService({ onAdd }: ChosenServiceProps) {
       image: chosenService.serviceImages?.[0] ?? "",
       duration: chosenService.serviceDuration,
     });
-    sweetTopSmallSuccessAlert("Added to cart");
+    sweetTopSmallSuccessAlert(t("common.addedToCart"));
   };
 
   const handleBookNow = () => {
@@ -87,21 +89,21 @@ export default function ChosenService({ onAdd }: ChosenServiceProps) {
     navigate("/booking");
   };
 
-  if (loading) return <Loader text="Loading service…" />;
+  if (loading) return <Loader text={t("services.detailLoading")} />;
 
   if (!chosenService) {
     return (
       <Container maxWidth="lg">
         <EmptyState
-          title="Service not found"
-          text="This service may have been removed or is not active right now."
+          title={t("services.notFoundTitle")}
+          text={t("services.notFoundText")}
           action={
             <Button
               variant="outlined"
               startIcon={<ArrowBackIcon />}
               onClick={() => navigate("/services")}
             >
-              Back to services
+              {t("services.backToServices")}
             </Button>
           }
         />
@@ -122,7 +124,7 @@ export default function ChosenService({ onAdd }: ChosenServiceProps) {
         onClick={() => navigate("/services")}
         sx={{ color: "var(--muted)", mb: 2 }}
       >
-        Back to services
+        {t("services.backToServices")}
       </Button>
 
       <div className="ck-detail-grid">
@@ -153,31 +155,30 @@ export default function ChosenService({ onAdd }: ChosenServiceProps) {
 
         <div className="ck-detail-info">
           <span className="tag tag-coral">
-            {humanizeEnum(chosenService.serviceCollection)}
+            {te(chosenService.serviceCollection)}
           </span>
 
           <h1>{chosenService.serviceName}</h1>
 
           <p className="ck-detail-desc">
-            {chosenService.serviceDesc ||
-              "No description yet."}
+            {chosenService.serviceDesc || t("common.noDescription")}
           </p>
 
           <div className="ck-detail-meta">
             <div className="ck-meta-box">
-              <div className="lbl">Price</div>
+              <div className="lbl">{t("services.price")}</div>
               <div className="val price">
                 {formatPrice(chosenService.servicePrice)}
               </div>
             </div>
             <div className="ck-meta-box">
-              <div className="lbl">Duration</div>
+              <div className="lbl">{t("services.duration")}</div>
               <div className="val">
                 {formatDuration(chosenService.serviceDuration)}
               </div>
             </div>
             <div className="ck-meta-box">
-              <div className="lbl">Views</div>
+              <div className="lbl">{t("services.views")}</div>
               <div className="val">{chosenService.serviceViews ?? 0}</div>
             </div>
           </div>
@@ -189,7 +190,7 @@ export default function ChosenService({ onAdd }: ChosenServiceProps) {
               startIcon={<EventAvailableIcon />}
               onClick={handleBookNow}
             >
-              Book now
+              {t("services.bookNow")}
             </Button>
             <Button
               variant="outlined"
@@ -197,7 +198,7 @@ export default function ChosenService({ onAdd }: ChosenServiceProps) {
               startIcon={<AddIcon />}
               onClick={handleAdd}
             >
-              Add to cart
+              {t("common.addToCart")}
             </Button>
           </div>
         </div>

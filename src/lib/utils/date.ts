@@ -1,4 +1,10 @@
 import { WORKING_HOURS, BOOKING_HORIZON_DAYS } from "../config";
+import {
+  DEFAULT_LANG,
+  LangCode,
+  MONTHS_FULL,
+  WEEKDAYS_SHORT,
+} from "../i18n/dictionary";
 
 export const toIsoDate = (date: Date): string => {
   const y = date.getFullYear();
@@ -7,27 +13,26 @@ export const toIsoDate = (date: Date): string => {
   return `${y}-${m}-${d}`;
 };
 
-const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const MONTHS = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
-];
+export const weekdayShort = (date: Date, lang: LangCode = DEFAULT_LANG): string =>
+  WEEKDAYS_SHORT[lang][date.getDay()];
 
-export const weekdayShort = (date: Date): string => WEEKDAYS[date.getDay()];
-
-export const formatDayMonth = (input: Date | string): string => {
+export const formatDayMonth = (
+  input: Date | string,
+  lang: LangCode = DEFAULT_LANG
+): string => {
   const d = typeof input === "string" ? new Date(input) : input;
   if (Number.isNaN(d.getTime())) return "—";
-  return `${MONTHS[d.getMonth()]} ${d.getDate()}`;
+  return `${MONTHS_FULL[lang][d.getMonth()]} ${d.getDate()}`;
 };
 
 export const formatDateTime = (
   input: Date | string,
+  lang: LangCode = DEFAULT_LANG,
   time?: string
 ): string => {
   const d = typeof input === "string" ? new Date(input) : input;
   if (Number.isNaN(d.getTime())) return "—";
-  const base = `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+  const base = `${MONTHS_FULL[lang][d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
   return time ? `${base}, ${time}` : base;
 };
 

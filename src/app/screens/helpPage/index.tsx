@@ -5,13 +5,18 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import PlaceIcon from "@mui/icons-material/Place";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
-import { faq, terms } from "../../../lib/data/faq";
+import { getFaq, getTerms } from "../../../lib/data/faq";
 import { SHOP } from "../../../lib/data/shop";
+import { useLanguage } from "../../hooks/useLanguage";
 
 import "../../../styles/help.css";
 
 export default function HelpPage() {
+  const { t, lang } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const faq = getFaq(lang);
+  const terms = getTerms(lang);
 
   const toggle = (index: number) =>
     setOpenIndex((prev) => (prev === index ? null : index));
@@ -20,11 +25,9 @@ export default function HelpPage() {
     <div className="help-page">
       <div className="ck-page-head">
         <Container maxWidth="lg">
-          <div className="crumb">Help</div>
-          <h1>Common questions</h1>
-          <p>
-            Can't find your answer? Call us — it's faster on the phone.
-          </p>
+          <div className="crumb">{t("help.crumb")}</div>
+          <h1>{t("help.title")}</h1>
+          <p>{t("help.desc")}</p>
         </Container>
       </div>
 
@@ -56,7 +59,7 @@ export default function HelpPage() {
 
             <aside>
               <div className="ck-terms-card" style={{ marginBottom: 16 }}>
-                <h4>Contact</h4>
+                <h4>{t("help.contact")}</h4>
                 <div className="ck-side-row">
                   <PhoneIcon fontSize="inherit" /> {SHOP.phone}
                 </div>
@@ -69,7 +72,7 @@ export default function HelpPage() {
               </div>
 
               <div className="ck-terms-card">
-                <h4>House rules</h4>
+                <h4>{t("help.houseRules")}</h4>
                 {terms.map((term) => (
                   <div key={term.title} className="ck-term">
                     <div className="tt">{term.title}</div>

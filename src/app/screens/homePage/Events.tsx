@@ -7,11 +7,16 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 
 import useReveal from "../../hooks/useReveal";
-import { featuredEvent, shopEvents } from "../../../lib/data/events";
+import { useLanguage } from "../../hooks/useLanguage";
+import { getFeaturedEvent, getShopEvents } from "../../../lib/data/events";
 
 export default function Events() {
+  const { t, lang } = useLanguage();
   const { ref, revealClass } = useReveal<HTMLElement>();
   const navigate = useNavigate();
+
+  const featuredEvent = getFeaturedEvent(lang);
+  const shopEvents = getShopEvents(lang);
 
   const goBooking = () => navigate("/booking");
 
@@ -19,9 +24,9 @@ export default function Events() {
     <section className={`ck-section ck-offers ${revealClass}`} ref={ref}>
       <Container maxWidth="lg">
         <div className="section-head">
-          <span className="section-label">Offers</span>
-          <h2 className="section-title">Save on your next cut</h2>
-          <p className="section-sub">Say the code when you book. That's all.</p>
+          <span className="section-label">{t("home.events.label")}</span>
+          <h2 className="section-title">{t("home.events.heading")}</h2>
+          <p className="section-sub">{t("home.events.sub")}</p>
         </div>
 
         <div className="ck-offer-grid">
@@ -80,7 +85,7 @@ export default function Events() {
             startIcon={<EventAvailableIcon />}
             onClick={goBooking}
           >
-            Book now
+            {t("home.events.bookNow")}
           </Button>
         </div>
       </Container>

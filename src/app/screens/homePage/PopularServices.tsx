@@ -9,6 +9,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import useReveal from "../../hooks/useReveal";
 import ServiceCard from "../../components/cards/ServiceCard";
 import EmptyState from "../../components/common/EmptyState";
+import { useLanguage } from "../../hooks/useLanguage";
 
 import { retrieveSignatureServices } from "./selector";
 import { CartItem } from "../../../lib/types/search";
@@ -23,6 +24,7 @@ interface PopularServicesProps {
 }
 
 export default function PopularServices({ onAdd }: PopularServicesProps) {
+  const { t } = useLanguage();
   const { ref, revealClass } = useReveal<HTMLElement>();
   const { signatureServices } = useSelector(popularRetriever);
   const navigate = useNavigate();
@@ -31,15 +33,15 @@ export default function PopularServices({ onAdd }: PopularServicesProps) {
     <section className={`ck-section ${revealClass}`} ref={ref}>
       <Container maxWidth="lg">
         <div className="section-head">
-          <span className="section-label">Most booked</span>
-          <h2 className="section-title">Top services</h2>
-          <p className="section-sub">The cuts our customers ask for most.</p>
+          <span className="section-label">{t("home.popularServices.label")}</span>
+          <h2 className="section-title">{t("home.popularServices.heading")}</h2>
+          <p className="section-sub">{t("home.popularServices.sub")}</p>
         </div>
 
         {signatureServices.length === 0 ? (
           <EmptyState
-            title="No services yet"
-            text="Add a service in the admin panel and set its status to PROCESS."
+            title={t("home.popularServices.emptyTitle")}
+            text={t("home.popularServices.emptyText")}
           />
         ) : (
           <>
@@ -60,7 +62,7 @@ export default function PopularServices({ onAdd }: PopularServicesProps) {
                 endIcon={<ArrowForwardIcon />}
                 onClick={() => navigate("/services")}
               >
-                See all services
+                {t("home.popularServices.seeAll")}
               </Button>
             </div>
           </>

@@ -7,6 +7,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { setSelectedMasterId } from "./slice";
 import { retrieveBookingMasters, retrieveSelectedMasterId } from "./selector";
 import MasterCard from "../../components/cards/MasterCard";
+import { useLanguage } from "../../hooks/useLanguage";
 
 const actionDispatch = (dispatch: Dispatch) => ({
   setSelectedMasterId: (id: string | null) => dispatch(setSelectedMasterId(id)),
@@ -19,6 +20,7 @@ const masterPickRetriever = createSelector(
 );
 
 export default function SelectMaster() {
+  const { t } = useLanguage();
   const { setSelectedMasterId } = actionDispatch(useDispatch());
   const { masters, selectedMasterId } = useSelector(masterPickRetriever);
 
@@ -27,7 +29,7 @@ export default function SelectMaster() {
       <div className="ck-panel-head">
         <div className="ck-panel-title">
           <span className="idx">2</span>
-          Choose a barber
+          {t("booking.chooseBarber")}
         </div>
       </div>
 
@@ -36,9 +38,9 @@ export default function SelectMaster() {
           <div className="ck-masters-note">
             <InfoOutlinedIcon fontSize="small" />
             <div>
-              <b>No barbers added yet</b>
-              A public <code>GET /member/masters</code> endpoint needs to be added
-              on the backend — see BACKEND-NOTES.md.
+              <b>{t("masters.noneAddedTitle")}</b>
+              {t("booking.noMastersNote")} <code>GET /member/masters</code>{" "}
+              {t("booking.noMastersNoteEnd")}
             </div>
           </div>
         ) : (

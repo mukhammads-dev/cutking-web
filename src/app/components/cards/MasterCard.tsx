@@ -3,7 +3,8 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import { Master } from "../../../lib/types/member";
 import { buildImageUrl } from "../../../lib/config";
-import { humanizeEnum, truncate } from "../../../lib/utils/format";
+import { truncate } from "../../../lib/utils/format";
+import { useLanguage } from "../../hooks/useLanguage";
 
 interface MasterCardProps {
   master: Master;
@@ -19,6 +20,7 @@ export default function MasterCard({
   selected = false,
   onSelect,
 }: MasterCardProps) {
+  const { t, te } = useLanguage();
   const avatar = buildImageUrl(master.memberImage, "/icons/default-user.svg");
 
   const handleClick = () => {
@@ -61,26 +63,26 @@ export default function MasterCard({
 
       <h3 className="ck-master-nick">{master.memberNick}</h3>
       {master.memberExperience ? (
-        <div className="ck-master-exp">{master.memberExperience}</div>
+        <div className="ck-master-exp">{te(master.memberExperience)}</div>
       ) : null}
 
       <div className="ck-master-tags">
         {master.memberSpecialty ? (
           <span className="tag tag-gold">
-            {humanizeEnum(master.memberSpecialty)}
+            {te(master.memberSpecialty)}
           </span>
         ) : null}
       </div>
 
       <p className="ck-master-desc">
-        {truncate(master.memberDesc, 84) || "No description yet."}
+        {truncate(master.memberDesc, 84) || t("common.noDescription")}
       </p>
 
       {selectable ? (
         <div className="ck-master-check">
           {selected ? (
             <>
-              <CheckCircleIcon fontSize="inherit" /> Selected
+              <CheckCircleIcon fontSize="inherit" /> {t("masters.selected")}
             </>
           ) : null}
         </div>

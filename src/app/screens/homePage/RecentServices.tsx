@@ -5,6 +5,7 @@ import Container from "@mui/material/Container";
 
 import useReveal from "../../hooks/useReveal";
 import ServiceCard from "../../components/cards/ServiceCard";
+import { useLanguage } from "../../hooks/useLanguage";
 
 import { retrieveNewServices } from "./selector";
 import { CartItem } from "../../../lib/types/search";
@@ -19,6 +20,7 @@ interface RecentServicesProps {
 }
 
 export default function RecentServices({ onAdd }: RecentServicesProps) {
+  const { t } = useLanguage();
   const { ref, revealClass } = useReveal<HTMLElement>();
   const { newServices } = useSelector(recentRetriever);
 
@@ -28,9 +30,9 @@ export default function RecentServices({ onAdd }: RecentServicesProps) {
     <section className={`ck-section alt ${revealClass}`} ref={ref}>
       <Container maxWidth="lg">
         <div className="section-head">
-          <span className="section-label">Just added</span>
-          <h2 className="section-title">New services</h2>
-          <p className="section-sub">Recently added to our price list.</p>
+          <span className="section-label">{t("home.recentServices.label")}</span>
+          <h2 className="section-title">{t("home.recentServices.heading")}</h2>
+          <p className="section-sub">{t("home.recentServices.sub")}</p>
         </div>
 
         <div className="ck-card-grid">

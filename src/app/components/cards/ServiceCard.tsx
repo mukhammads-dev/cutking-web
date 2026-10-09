@@ -10,9 +10,10 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 import { Service } from "../../../lib/types/service";
 import { CartItem } from "../../../lib/types/search";
 import { buildImageUrl } from "../../../lib/config";
-import { formatPrice, humanizeEnum, truncate } from "../../../lib/utils/format";
+import { formatPrice, truncate } from "../../../lib/utils/format";
 import { formatDuration } from "../../../lib/utils/date";
 import { sweetTopSmallSuccessAlert } from "../../../lib/sweetAlert";
+import { useLanguage } from "../../hooks/useLanguage";
 
 interface ServiceCardProps {
   service: Service;
@@ -30,6 +31,7 @@ export default function ServiceCard({
   isNew = false,
   rank,
 }: ServiceCardProps) {
+  const { t, te } = useLanguage();
   const navigate = useNavigate();
 
   const imagePath = buildImageUrl(service.serviceImages?.[0]);
@@ -46,7 +48,7 @@ export default function ServiceCard({
       image: service.serviceImages?.[0] ?? "",
       duration: service.serviceDuration,
     });
-    sweetTopSmallSuccessAlert("Added to cart");
+    sweetTopSmallSuccessAlert(t("common.addedToCart"));
   };
 
   return (
@@ -62,12 +64,16 @@ export default function ServiceCard({
         <img src={imagePath} alt={service.serviceName} loading="lazy" />
 
         <span className="ck-service-collection tag tag-coral">
-          {humanizeEnum(service.serviceCollection)}
+          {te(service.serviceCollection)}
         </span>
 
-        {isNew ? <span className="ck-service-new">New</span> : null}
+        {isNew ? <span className="ck-service-new">{t("common.new")}</span> : null}
 
-        {rank ? <span className="ck-service-rank">#{rank} booked</span> : null}
+        {rank ? (
+          <span className="ck-service-rank">
+            {t("services.rankBooked").replace("{rank}", String(rank))}
+          </span>
+        ) : null}
 
         <span className="ck-service-views">
           <VisibilityIcon fontSize="inherit" />
@@ -75,7 +81,7 @@ export default function ServiceCard({
         </span>
 
         <div className="ck-service-add">
-          <Tooltip title="Add to cart">
+          <Tooltip title={t("common.addToCart")}>
             <Fab size="small" color="primary" onClick={handleAdd}>
               <AddIcon fontSize="small" />
             </Fab>
@@ -86,7 +92,7 @@ export default function ServiceCard({
       <div className="ck-service-body">
         <h3 className="ck-service-name">{service.serviceName}</h3>
         <p className="ck-service-desc">
-          {truncate(service.serviceDesc, 78) || "No description yet."}
+          {truncate(service.serviceDesc, 78) || t("common.noDescription")}
         </p>
 
         <div className="ck-service-foot">
@@ -108,7 +114,7 @@ export default function ServiceCard({
             onClick={handleAdd}
             sx={{ mt: 1.5 }}
           >
-            Add to cart
+            {t("common.addToCart")}
           </Button>
         ) : null}
       </div>

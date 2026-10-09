@@ -8,6 +8,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import App from "./app/App";
 import { store } from "./app/store";
 import GlobalProvider from "./app/context/GlobalProvider";
+import LanguageProvider from "./app/context/LanguageProvider";
 import ErrorBoundary from "./app/components/common/ErrorBoundary";
 import theme from "./app/theme";
 import reportWebVitals from "./reportWebVitals";
@@ -23,6 +24,7 @@ root.render(
   <React.StrictMode>
     <ErrorBoundary>
       <Provider store={store}>
+        <LanguageProvider>
         <GlobalProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -31,6 +33,7 @@ root.render(
             </BrowserRouter>
           </ThemeProvider>
         </GlobalProvider>
+        </LanguageProvider>
       </Provider>
     </ErrorBoundary>
   </React.StrictMode>

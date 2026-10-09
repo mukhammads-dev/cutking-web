@@ -6,6 +6,7 @@ import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 
 import MemberService from "../../services/MemberService";
 import { useGlobals } from "../../hooks/useGlobals";
+import { useLanguage } from "../../hooks/useLanguage";
 import { MemberUpdateInput } from "../../../lib/types/member";
 import { buildImageUrl, Messages } from "../../../lib/config";
 import {
@@ -16,6 +17,7 @@ import {
 const ALLOWED_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 export default function Settings() {
+  const { t } = useLanguage();
   const { authMember, setAuthMember } = useGlobals();
   const fileRef = useRef<HTMLInputElement | null>(null);
 
@@ -67,7 +69,7 @@ export default function Settings() {
       setImageFile(null);
       setPreview(null);
 
-      await sweetTopSuccessAlert("Profile updated", 1400);
+      await sweetTopSuccessAlert(t("profile.updated"), 1400);
     } catch (err) {
       await sweetErrorHandling(err);
     } finally {
@@ -88,8 +90,8 @@ export default function Settings() {
   return (
     <div className="ck-form-card">
       <div className="ck-form-card-head">
-        <h3>Your details</h3>
-        <p>We use these to contact you about bookings.</p>
+        <h3>{t("profile.formTitle")}</h3>
+        <p>{t("profile.formDesc")}</p>
       </div>
 
       <div className="ck-form-card-body">
@@ -102,7 +104,7 @@ export default function Settings() {
               startIcon={<PhotoCameraIcon />}
               onClick={() => fileRef.current?.click()}
             >
-              Choose photo
+              {t("profile.choosePhoto")}
             </Button>
             <input
               ref={fileRef}
@@ -111,21 +113,19 @@ export default function Settings() {
               hidden
               onChange={handleFileChange}
             />
-            <div className="ck-avatar-hint">
-              JPG, PNG or WEBP. A square image looks best.
-            </div>
+            <div className="ck-avatar-hint">{t("profile.avatarHint")}</div>
           </div>
         </div>
 
         <div className="ck-form-grid" style={{ marginTop: 22 }}>
           <TextField
-            label="Username"
+            label={t("profile.username")}
             value={memberNick}
             onChange={(e) => setMemberNick(e.target.value)}
             fullWidth
           />
           <TextField
-            label="Phone number"
+            label={t("profile.phone")}
             value={memberPhone}
             onChange={(e) => setMemberPhone(e.target.value)}
             placeholder="010-1234-5678"
@@ -133,14 +133,14 @@ export default function Settings() {
           />
           <TextField
             className="ck-form-full"
-            label="Address"
+            label={t("profile.address")}
             value={memberAddress}
             onChange={(e) => setMemberAddress(e.target.value)}
             fullWidth
           />
           <TextField
             className="ck-form-full"
-            label="About you"
+            label={t("profile.aboutYou")}
             value={memberDesc}
             onChange={(e) => setMemberDesc(e.target.value)}
             multiline
@@ -156,10 +156,10 @@ export default function Settings() {
             onClick={handleSave}
             disabled={saving}
           >
-            {saving ? "Saving…" : "Save changes"}
+            {saving ? t("profile.saving") : t("profile.save")}
           </Button>
           <Button variant="text" sx={{ color: "var(--muted)" }} onClick={handleReset}>
-            Reset
+            {t("profile.reset")}
           </Button>
         </div>
       </div>

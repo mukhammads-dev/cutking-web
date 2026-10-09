@@ -15,6 +15,7 @@ import EmptyState from "../../components/common/EmptyState";
 import Loader from "../../components/common/Loader";
 
 import CuttingService from "../../services/CuttingService";
+import { useLanguage } from "../../hooks/useLanguage";
 import { Service, ServiceInquiry } from "../../../lib/types/service";
 import { CartItem } from "../../../lib/types/search";
 import {
@@ -22,7 +23,6 @@ import {
   ServiceSort,
 } from "../../../lib/enums/service.enum";
 import { PAGE_LIMIT } from "../../../lib/config";
-import { humanizeEnum } from "../../../lib/utils/format";
 
 const actionDispatch = (dispatch: Dispatch) => ({
   setServices: (data: Service[]) => dispatch(setServices(data)),
@@ -35,19 +35,20 @@ const servicesRetriever = createSelector(
 
 const COLLECTIONS = Object.values(ServiceCollection);
 
-const SORTS: { key: string; label: string }[] = [
-  { key: ServiceSort.NEW, label: "Newest" },
-  { key: ServiceSort.PRICE, label: "Price" },
-  { key: ServiceSort.VIEWS, label: "Popular" },
-];
-
 interface ServicesListProps {
   onAdd: (item: CartItem) => void;
 }
 
 export default function ServicesList({ onAdd }: ServicesListProps) {
+  const { t, te } = useLanguage();
   const { setServices } = actionDispatch(useDispatch());
   const { services } = useSelector(servicesRetriever);
+
+  const SORTS: { key: string; label: string }[] = [
+    { key: ServiceSort.NEW, label: t("services.sortNewest") },
+    { key: ServiceSort.PRICE, label: t("services.sortPrice") },
+    { key: ServiceSort.VIEWS, label: t("services.sortPopular") },
+  ];
 
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
@@ -125,7 +126,7 @@ export default function ServicesList({ onAdd }: ServicesListProps) {
             className={!inquiry.serviceCollection ? "ck-chip active" : "ck-chip"}
             onClick={() => collectionHandler(undefined)}
           >
-            All
+            {t("services.all")}
           </button>
           {COLLECTIONS.map((collection) => (
             <button
@@ -137,7 +138,7 @@ export default function ServicesList({ onAdd }: ServicesListProps) {
               }
               onClick={() => collectionHandler(collection)}
             >
-              {humanizeEnum(collection)}
+              {te(collection)}
             </button>
           ))}
         </div>
@@ -146,11 +147,11 @@ export default function ServicesList({ onAdd }: ServicesListProps) {
           <SearchIcon sx={{ fontSize: 18, color: "var(--muted)" }} />
           <input
             type="search"
-            placeholder="Search services"
+            placeholder={t("services.searchPlaceholder")}
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && searchHandler()}
-            aria-label="Search services"
+            aria-label={t("services.searchPlaceholder")}
           />
           {searchText ? (
             <IconButton size="small" onClick={clearSearchHandler}>
@@ -175,11 +176,11 @@ export default function ServicesList({ onAdd }: ServicesListProps) {
       </div>
 
       {loading ? (
-        <Loader text="Loading services…" />
+        <Loader text={t("services.loading")} />
       ) : services.length === 0 ? (
         <EmptyState
-          title="No services found"
-          text="Try a different filter or clear the search."
+          title={t("services.emptyTitle")}
+          text={t("services.emptyText")}
         />
       ) : (
         <>

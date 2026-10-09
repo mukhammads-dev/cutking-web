@@ -24,6 +24,7 @@ import {
 } from "./selector";
 
 import { useGlobals } from "../../hooks/useGlobals";
+import { useLanguage } from "../../hooks/useLanguage";
 import BookingService from "../../services/BookingService";
 import { Booking } from "../../../lib/types/booking";
 import { BookingStatus } from "../../../lib/enums/booking.enum";
@@ -55,6 +56,7 @@ const bookingsRetriever = createSelector(
 );
 
 export default function MyBookingsPage() {
+  const { t, te } = useLanguage();
   const { setPausedBookings, setProcessBookings, setFinishedBookings } =
     actionDispatch(useDispatch());
   const { pausedBookings, processBookings, finishedBookings } =
@@ -121,52 +123,52 @@ export default function MyBookingsPage() {
 
   const pausedActions: BookingAction[] = [
     {
-      label: "Cancel",
+      label: t("myBookings.cancel"),
       variant: "outlined",
       color: "error",
       onClick: (booking) =>
         updateStatus(
           booking,
           BookingStatus.DELETE,
-          "Cancel this booking?",
-          "Booking cancelled"
+          t("myBookings.cancelQuestion"),
+          t("myBookings.cancelledAlert")
         ),
     },
     {
-      label: "Confirm",
+      label: t("myBookings.confirm"),
       variant: "contained",
       onClick: (booking) =>
         updateStatus(
           booking,
           BookingStatus.PROCESS,
-          "Confirm this booking?",
-          "Booking confirmed"
+          t("myBookings.confirmQuestion"),
+          t("myBookings.confirmedAlert")
         ),
     },
   ];
 
   const processActions: BookingAction[] = [
     {
-      label: "Cancel",
+      label: t("myBookings.cancel"),
       variant: "outlined",
       color: "error",
       onClick: (booking) =>
         updateStatus(
           booking,
           BookingStatus.DELETE,
-          "Cancel this confirmed booking?",
-          "Booking cancelled"
+          t("myBookings.cancelConfirmedQuestion"),
+          t("myBookings.cancelledAlert")
         ),
     },
     {
-      label: "Mark as done",
+      label: t("myBookings.markAsDone"),
       variant: "contained",
       onClick: (booking) =>
         updateStatus(
           booking,
           BookingStatus.FINISH,
-          "Mark this booking as done?",
-          "Booking completed"
+          t("myBookings.markDoneQuestion"),
+          t("myBookings.completedAlert")
         ),
     },
   ];
@@ -182,11 +184,9 @@ export default function MyBookingsPage() {
     <div className="my-bookings-page">
       <div className="ck-page-head">
         <Container maxWidth="lg">
-          <div className="crumb">My account</div>
-          <h1>My bookings</h1>
-          <p>
-            All your bookings, past and upcoming.
-          </p>
+          <div className="crumb">{t("myBookings.crumb")}</div>
+          <h1>{t("myBookings.title")}</h1>
+          <p>{t("myBookings.desc")}</p>
         </Container>
       </div>
 
@@ -202,15 +202,15 @@ export default function MyBookingsPage() {
                   scrollButtons="auto"
                 >
                   <Tab
-                    label={`Pending (${pausedBookings.length})`}
+                    label={`${t("myBookings.pending")} (${pausedBookings.length})`}
                     value="1"
                   />
                   <Tab
-                    label={`Confirmed (${processBookings.length})`}
+                    label={`${t("myBookings.confirmed")} (${processBookings.length})`}
                     value="2"
                   />
                   <Tab
-                    label={`Completed (${finishedBookings.length})`}
+                    label={`${t("myBookings.completed")} (${finishedBookings.length})`}
                     value="3"
                   />
                 </Tabs>
@@ -218,15 +218,15 @@ export default function MyBookingsPage() {
 
               <div className="ck-tabs-body">
                 {loading ? (
-                  <Loader text="Loading bookings…" />
+                  <Loader text={t("myBookings.loading")} />
                 ) : (
                   <>
                     {tab === "1" ? (
                       <BookingList
                         bookings={pausedBookings}
                         actions={pausedActions}
-                        emptyTitle="Nothing pending"
-                        emptyText="New bookings appear here first."
+                        emptyTitle={t("myBookings.emptyPendingTitle")}
+                        emptyText={t("myBookings.emptyPendingText")}
                       />
                     ) : null}
 
@@ -234,16 +234,16 @@ export default function MyBookingsPage() {
                       <BookingList
                         bookings={processBookings}
                         actions={processActions}
-                        emptyTitle="Nothing confirmed"
-                        emptyText="Confirmed bookings appear here."
+                        emptyTitle={t("myBookings.emptyConfirmedTitle")}
+                        emptyText={t("myBookings.emptyConfirmedText")}
                       />
                     ) : null}
 
                     {tab === "3" ? (
                       <BookingList
                         bookings={finishedBookings}
-                        emptyTitle="Nothing completed yet"
-                        emptyText="Finished visits are kept here."
+                        emptyTitle={t("myBookings.emptyCompletedTitle")}
+                        emptyText={t("myBookings.emptyCompletedText")}
                       />
                     ) : null}
                   </>
@@ -272,24 +272,24 @@ export default function MyBookingsPage() {
                 </div>
 
                 <div className="ck-side-nick">{authMember?.memberNick}</div>
-                <div className="ck-side-role">{authMember?.memberType}</div>
+                <div className="ck-side-role">{te(authMember?.memberType)}</div>
 
                 <div className="ck-side-divider" />
 
                 <div className="ck-side-row">
                   <PhoneIcon fontSize="inherit" />
-                  {authMember?.memberPhone || "No phone number"}
+                  {authMember?.memberPhone || t("myBookings.noPhone")}
                 </div>
                 <div className="ck-side-row">
                   <PlaceIcon fontSize="inherit" />
-                  {authMember?.memberAddress || "No address"}
+                  {authMember?.memberAddress || t("myBookings.noAddress")}
                 </div>
 
                 <div className="ck-side-divider" />
 
                 <div className="ck-side-points">
                   <StarBorderIcon fontSize="small" />
-                  {authMember?.memberPoints ?? 0} pts
+                  {authMember?.memberPoints ?? 0} {t("home.topUsers.pts")}
                 </div>
               </div>
             </aside>

@@ -16,6 +16,7 @@ import { buildImageUrl } from "../../../lib/config";
 import { formatPrice } from "../../../lib/utils/format";
 import { formatDuration } from "../../../lib/utils/date";
 import { RippleBadge } from "../../theme/styled";
+import { useLanguage } from "../../hooks/useLanguage";
 
 export interface BookingCartProps {
   cartItems: CartItem[];
@@ -38,6 +39,7 @@ export default function BookingCart(props: BookingCartProps) {
     totalDuration,
   } = props;
 
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -53,8 +55,8 @@ export default function BookingCart(props: BookingCartProps) {
 
   return (
     <>
-      <Tooltip title="Booking cart">
-        <IconButton onClick={handleOpen} aria-label="Booking cart">
+      <Tooltip title={t("cart.tooltip")}>
+        <IconButton onClick={handleOpen} aria-label={t("cart.tooltip")}>
           <RippleBadge badgeContent={cartItems.length} invisible={!cartItems.length}>
             <ShoppingBagOutlinedIcon />
           </RippleBadge>
@@ -84,10 +86,10 @@ export default function BookingCart(props: BookingCartProps) {
         <div className="ck-cart-menu">
           <div className="ck-cart-head">
             <span className="ck-cart-title">
-              Selected services ({cartItems.length})
+              {t("cart.selectedServices")} ({cartItems.length})
             </span>
             {cartItems.length > 0 ? (
-              <Tooltip title="Clear cart">
+              <Tooltip title={t("cart.clearCart")}>
                 <IconButton size="small" onClick={onDeleteAll}>
                   <DeleteSweepIcon fontSize="small" />
                 </IconButton>
@@ -97,9 +99,9 @@ export default function BookingCart(props: BookingCartProps) {
 
           {cartItems.length === 0 ? (
             <div className="ck-cart-empty">
-              Nothing selected yet.
+              {t("cart.emptyLine1")}
               <br />
-              Add a service to start.
+              {t("cart.emptyLine2")}
             </div>
           ) : (
             <>
@@ -138,11 +140,11 @@ export default function BookingCart(props: BookingCartProps) {
 
               <div className="ck-cart-foot">
                 <div className="ck-cart-sum">
-                  <span>Total duration</span>
+                  <span>{t("cart.totalDuration")}</span>
                   <span>{formatDuration(totalDuration)}</span>
                 </div>
                 <div className="ck-cart-sum total">
-                  <span>Total</span>
+                  <span>{t("cart.total")}</span>
                   <span>{formatPrice(totalPrice)}</span>
                 </div>
 
@@ -152,7 +154,7 @@ export default function BookingCart(props: BookingCartProps) {
                   startIcon={<EventAvailableIcon />}
                   onClick={handleGoBooking}
                 >
-                  Choose a time
+                  {t("cart.chooseTime")}
                 </Button>
               </div>
             </>

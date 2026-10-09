@@ -13,10 +13,15 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import LoginIcon from "@mui/icons-material/Login";
+import LanguageIcon from "@mui/icons-material/Language";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import CheckIcon from "@mui/icons-material/Check";
 
 import Logo from "./Logo";
 import BookingCart, { BookingCartProps } from "./BookingCart";
 import { useGlobals } from "../../hooks/useGlobals";
+import { useLanguage } from "../../hooks/useLanguage";
+import { LANG_NAMES } from "../../../lib/i18n/dictionary";
 import { buildImageUrl } from "../../../lib/config";
 
 export interface NavbarProps extends BookingCartProps {
@@ -25,18 +30,21 @@ export interface NavbarProps extends BookingCartProps {
   onLogout: () => void;
 }
 
-const LINKS = [
-  { to: "/", label: "Home", end: true },
-  { to: "/services", label: "Services", end: false },
-  { to: "/masters", label: "Barbers", end: false },
-  { to: "/booking", label: "Book", end: false },
-  { to: "/help", label: "Help", end: false },
+const LINK_DEFS = [
+  { to: "/", key: "nav.home", end: true },
+  { to: "/services", key: "nav.services", end: false },
+  { to: "/masters", key: "nav.masters", end: false },
+  { to: "/booking", key: "nav.booking", end: false },
+  { to: "/help", key: "nav.help", end: false },
 ];
 
 export default function Navbar(props: NavbarProps) {
   const { onOpenLogin, onOpenSignup, onLogout, ...cartProps } = props;
 
   const { authMember } = useGlobals();
+  const { lang, setLang, langs, langLabels, t } = useLanguage();
+  const [langAnchorEl, setLangAnchorEl] = useState<null | HTMLElement>(null);
+  const langMenuOpen = Boolean(langAnchorEl);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -61,13 +69,21 @@ export default function Navbar(props: NavbarProps) {
     onLogout();
   };
 
+  const handleLangClick = (e: React.MouseEvent<HTMLElement>) =>
+    setLangAnchorEl(e.currentTarget);
+  const handleLangClose = () => setLangAnchorEl(null);
+  const chooseLang = (code: typeof lang) => {
+    setLang(code);
+    handleLangClose();
+  };
+
   const avatar = buildImageUrl(
     authMember?.memberImage,
     "/icons/default-user.svg"
   );
 
   const navLinks = (onClick?: () => void) =>
-    LINKS.map((link) => (
+    LINK_DEFS.map((link) => (
       <NavLink
         key={link.to}
         to={link.to}
@@ -77,9 +93,49 @@ export default function Navbar(props: NavbarProps) {
           isActive ? "ck-nav-link active" : "ck-nav-link"
         }
       >
-        {link.label}
+        {t(link.key)}
       </NavLink>
     ));
+
+  const langSwitch = (
+    <>
+      <button type="button" className="ck-lang-trigger" onClick={handleLangClick}>
+        <LanguageIcon sx={{ fontSize: 17 }} />
+        <span>{langLabels[lang]}</span>
+        <KeyboardArrowDownIcon
+          sx={{ fontSize: 16, transform: langMenuOpen ? "rotate(180deg)" : "none", transition: "transform .15s" }}
+        />
+      </button>
+      <Menu
+        anchorEl={langAnchorEl}
+        open={langMenuOpen}
+        onClose={handleLangClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        transformOrigin={{ vertical: "top", horizontal: "left" }}
+        slotProps={{
+          paper: {
+            elevation: 0,
+            sx: {
+              mt: 1,
+              minWidth: 160,
+              border: "1px solid var(--light2)",
+              borderRadius: "var(--r)",
+              boxShadow: "var(--sh)",
+            },
+          },
+        }}
+      >
+        {langs.map((code) => (
+          <MenuItem key={code} selected={code === lang} onClick={() => chooseLang(code)}>
+            <ListItemIcon sx={{ minWidth: 28, color: "var(--coral)" }}>
+              {code === lang ? <CheckIcon fontSize="small" /> : null}
+            </ListItemIcon>
+            {LANG_NAMES[code]}
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
+  );
 
   return (
     <header className={onHome ? "ck-navbar on-home" : "ck-navbar"}>
@@ -90,6 +146,7 @@ export default function Navbar(props: NavbarProps) {
           <nav className="ck-nav-links">{navLinks()}</nav>
 
           <div className="ck-nav-right">
+            {langSwitch}
             <BookingCart {...cartProps} />
 
             {authMember ? (
@@ -123,20 +180,20 @@ export default function Navbar(props: NavbarProps) {
                     <ListItemIcon>
                       <PersonOutlineIcon fontSize="small" />
                     </ListItemIcon>
-                    My profile
+                    {t("nav.profile")}
                   </MenuItem>
                   <MenuItem onClick={() => goTo("/my-bookings")}>
                     <ListItemIcon>
                       <EventNoteIcon fontSize="small" />
                     </ListItemIcon>
-                    My bookings
+                    {t("nav.myBookings")}
                   </MenuItem>
                   <Divider />
                   <MenuItem onClick={handleLogout} sx={{ color: "var(--red)" }}>
                     <ListItemIcon>
                       <LogoutIcon fontSize="small" sx={{ color: "var(--red)" }} />
                     </ListItemIcon>
-                    Log out
+                    {t("nav.logout")}
                   </MenuItem>
                 </Menu>
               </>
@@ -148,7 +205,7 @@ export default function Navbar(props: NavbarProps) {
                   sx={{ color: "var(--muted)", display: { xs: "none", sm: "inline-flex" } }}
                   onClick={onOpenLogin}
                 >
-                  Log in
+                  {t("nav.login")}
                 </Button>
                 <Button
                   size="small"
@@ -156,7 +213,7 @@ export default function Navbar(props: NavbarProps) {
                   startIcon={<LoginIcon sx={{ fontSize: 16 }} />}
                   onClick={onOpenSignup}
                 >
-                  Sign up
+                  {t("nav.signup")}
                 </Button>
               </>
             )}

@@ -18,6 +18,7 @@ import NotFoundPage from "./screens/NotFoundPage";
 
 import useBookingCart from "./hooks/useBookingCart";
 import { useGlobals } from "./hooks/useGlobals";
+import { useLanguage } from "./hooks/useLanguage";
 import MemberService from "./services/MemberService";
 import { Messages } from "../lib/config";
 import {
@@ -33,6 +34,7 @@ import "../styles/auth.css";
 
 function App() {
   const { authMember, setAuthMember } = useGlobals();
+  const { t } = useLanguage();
 
   const cart = useBookingCart();
   const location = useLocation();
@@ -66,7 +68,7 @@ function App() {
       const member = new MemberService();
       await member.logout();
       setAuthMember(null);
-      await sweetTopSuccessAlert("Logged out", 1200);
+      await sweetTopSuccessAlert(t("nav.loggedOut"), 1200);
     } catch (err) {
       console.error("App.logout:", err);
 

@@ -6,10 +6,12 @@ import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import PlaceIcon from "@mui/icons-material/Place";
 
 import useHeroNav from "../../hooks/useHeroNav";
+import { useLanguage } from "../../hooks/useLanguage";
 
 const HERO_IMAGE = "/img/hero-banner.jpg";
 
 export default function HeroBanner() {
+  const { t } = useLanguage();
   const navigate = useNavigate();
   useHeroNav(true);
 
@@ -28,18 +30,16 @@ export default function HeroBanner() {
         <Container maxWidth="lg">
           <span className="ck-hero-eyebrow on-dark">
             <PlaceIcon sx={{ fontSize: 13 }} />
-            Haeundae, Busan
+            {t("home.hero.location")}
           </span>
 
           <h1 className="ck-hero-title on-dark">
-            Book your haircut.
+            {t("home.hero.titleLine1")}
             <br />
-            <em>No waiting.</em>
+            <em>{t("home.hero.titleLine2")}</em>
           </h1>
 
-          <p className="ck-hero-text on-dark">
-            Choose your barber, pick your time, walk straight in.
-          </p>
+          <p className="ck-hero-text on-dark">{t("home.hero.text")}</p>
 
           <div className="ck-hero-actions">
             <Button
@@ -48,7 +48,7 @@ export default function HeroBanner() {
               startIcon={<EventAvailableIcon />}
               onClick={() => navigate("/booking")}
             >
-              Book now
+              {t("home.hero.cta.book")}
             </Button>
             <Button
               variant="outlined"
@@ -56,11 +56,11 @@ export default function HeroBanner() {
               className="ck-btn-on-dark"
               onClick={() => navigate("/services")}
             >
-              See prices
+              {t("home.hero.seePrices")}
             </Button>
             <span className="ck-hero-open">
               <i className="ck-hero-dot" />
-              Open daily 09:00 — 21:00
+              {t("home.hero.openDaily")}
             </span>
           </div>
         </Container>

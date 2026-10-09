@@ -9,6 +9,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import { retrieveTopMasters } from "./selector";
 import MasterCard from "../../components/cards/MasterCard";
+import { useLanguage } from "../../hooks/useLanguage";
 
 const topMastersRetriever = createSelector(
   retrieveTopMasters,
@@ -16,6 +17,7 @@ const topMastersRetriever = createSelector(
 );
 
 export default function TopMasters() {
+  const { t } = useLanguage();
   const { ref, revealClass } = useReveal<HTMLElement>();
   const { topMasters } = useSelector(topMastersRetriever);
   const navigate = useNavigate();
@@ -26,11 +28,9 @@ export default function TopMasters() {
     <section className={`ck-section ${revealClass}`} ref={ref}>
       <Container maxWidth="lg">
         <div className="section-head">
-          <span className="section-label">Our team</span>
-          <h2 className="section-title">Choose your barber</h2>
-          <p className="section-sub">
-            Each one has a specialty. Book by name.
-          </p>
+          <span className="section-label">{t("home.topMasters.label")}</span>
+          <h2 className="section-title">{t("home.topMasters.heading")}</h2>
+          <p className="section-sub">{t("home.topMasters.sub")}</p>
         </div>
 
         <div className="ck-card-grid cols-3">
@@ -45,7 +45,7 @@ export default function TopMasters() {
             endIcon={<ArrowForwardIcon />}
             onClick={() => navigate("/masters")}
           >
-            See all barbers
+            {t("home.topMasters.seeAll")}
           </Button>
         </div>
       </Container>

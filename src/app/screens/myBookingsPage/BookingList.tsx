@@ -9,25 +9,7 @@ import { buildImageUrl } from "../../../lib/config";
 import { formatPrice } from "../../../lib/utils/format";
 import { formatDayMonth, formatDuration } from "../../../lib/utils/date";
 import EmptyState from "../../components/common/EmptyState";
-
-const STATUS_META: Record<
-  BookingStatus,
-  { className: string; label: string }
-> = {
-  [BookingStatus.PAUSE]: { className: "badge badge-pause", label: "Pending" },
-  [BookingStatus.PROCESS]: {
-    className: "badge badge-process",
-    label: "Confirmed",
-  },
-  [BookingStatus.FINISH]: {
-    className: "badge badge-finish",
-    label: "Completed",
-  },
-  [BookingStatus.DELETE]: {
-    className: "badge badge-delete",
-    label: "Cancelled",
-  },
-};
+import { useLanguage } from "../../hooks/useLanguage";
 
 export interface BookingAction {
   label: string;
@@ -49,6 +31,27 @@ export default function BookingList({
   emptyText,
   actions = [],
 }: BookingListProps) {
+  const { t, lang } = useLanguage();
+
+  const STATUS_META: Record<
+    BookingStatus,
+    { className: string; label: string }
+  > = {
+    [BookingStatus.PAUSE]: { className: "badge badge-pause", label: t("myBookings.pending") },
+    [BookingStatus.PROCESS]: {
+      className: "badge badge-process",
+      label: t("myBookings.confirmed"),
+    },
+    [BookingStatus.FINISH]: {
+      className: "badge badge-finish",
+      label: t("myBookings.completed"),
+    },
+    [BookingStatus.DELETE]: {
+      className: "badge badge-delete",
+      label: t("myBookings.cancelled"),
+    },
+  };
+
   if (!bookings || bookings.length === 0) {
     return <EmptyState title={emptyTitle} text={emptyText} />;
   }
@@ -64,7 +67,7 @@ export default function BookingList({
             <header className="ck-booking-head">
               <div className="ck-booking-when">
                 <CalendarMonthIcon fontSize="inherit" />
-                {formatDayMonth(booking.bookingDate)}
+                {formatDayMonth(booking.bookingDate, lang)}
                 <span className="time">{booking.bookingTime}</span>
               </div>
 
@@ -90,7 +93,7 @@ export default function BookingList({
                     />
                     <div className="info">
                       <div className="nm">
-                        {service?.serviceName ?? "Service removed"}
+                        {service?.serviceName ?? t("myBookings.serviceRemoved")}
                       </div>
                       <div className="mt">
                         {formatPrice(item.itemPrice)}
@@ -110,7 +113,7 @@ export default function BookingList({
 
             <footer className="ck-booking-foot">
               <div className="ck-booking-total">
-                <span className="lbl">Total</span>
+                <span className="lbl">{t("myBookings.total")}</span>
                 <span className="val">{formatPrice(booking.bookingTotal)}</span>
               </div>
 

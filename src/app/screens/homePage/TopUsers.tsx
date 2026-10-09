@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import Container from "@mui/material/Container";
 import useReveal from "../../hooks/useReveal";
+import { useLanguage } from "../../hooks/useLanguage";
 
 import { retrieveTopUsers } from "./selector";
 import { buildImageUrl } from "../../../lib/config";
@@ -13,6 +14,7 @@ const topUsersRetriever = createSelector(
 );
 
 export default function TopUsers() {
+  const { t } = useLanguage();
   const { ref, revealClass } = useReveal<HTMLElement>();
   const { topUsers } = useSelector(topUsersRetriever);
 
@@ -22,11 +24,9 @@ export default function TopUsers() {
     <section className={`ck-section alt ${revealClass}`} ref={ref}>
       <Container maxWidth="lg">
         <div className="section-head">
-          <span className="section-label">Regulars</span>
-          <h2 className="section-title">Our regulars</h2>
-          <p className="section-sub">
-            Every visit earns points. Points turn into discounts.
-          </p>
+          <span className="section-label">{t("home.topUsers.label")}</span>
+          <h2 className="section-title">{t("home.topUsers.heading")}</h2>
+          <p className="section-sub">{t("home.topUsers.sub")}</p>
         </div>
 
         <div className="ck-user-strip">
@@ -38,7 +38,9 @@ export default function TopUsers() {
               />
               <div>
                 <div className="nick">{user.memberNick}</div>
-                <div className="pts">{user.memberPoints ?? 0} pts</div>
+                <div className="pts">
+                  {user.memberPoints ?? 0} {t("home.topUsers.pts")}
+                </div>
               </div>
             </div>
           ))}

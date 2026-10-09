@@ -13,6 +13,7 @@ import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import Logo from "../headers/Logo";
 import MemberService from "../../services/MemberService";
 import { useGlobals } from "../../hooks/useGlobals";
+import { useLanguage } from "../../hooks/useLanguage";
 import { LoginInput, MemberInput } from "../../../lib/types/member";
 import { Messages } from "../../../lib/config";
 import {
@@ -28,19 +29,20 @@ interface AuthenticationModalProps {
   onSwitch: (mode: AuthMode) => void;
 }
 
-const PERKS = [
-  "Book online, no waiting",
-  "Choose your favourite barber",
-  "All your bookings in one place",
-  "Points on every visit",
-];
-
 export default function AuthenticationModal({
   mode,
   onClose,
   onSwitch,
 }: AuthenticationModalProps) {
+  const { t } = useLanguage();
   const { setAuthMember } = useGlobals();
+
+  const PERKS = [
+    t("auth.perk1"),
+    t("auth.perk2"),
+    t("auth.perk3"),
+    t("auth.perk4"),
+  ];
 
   const [memberNick, setMemberNick] = useState("");
   const [memberPhone, setMemberPhone] = useState("");
@@ -80,7 +82,7 @@ export default function AuthenticationModal({
       const result = await member.signup(input);
 
       setAuthMember(result);
-      await sweetTopSuccessAlert("Welcome to CutKing!", 1400);
+      await sweetTopSuccessAlert(t("auth.welcome"), 1400);
       handleClose();
     } catch (err) {
       handleClose();
@@ -106,7 +108,7 @@ export default function AuthenticationModal({
       const result = await member.login(input);
 
       setAuthMember(result);
-      await sweetTopSuccessAlert("Logged in", 1200);
+      await sweetTopSuccessAlert(t("auth.loggedIn"), 1200);
       handleClose();
     } catch (err) {
       handleClose();
@@ -135,7 +137,7 @@ export default function AuthenticationModal({
       <Fade in={open}>
         <div className="ck-auth-modal">
           <div className="ck-auth-close">
-            <IconButton size="small" onClick={handleClose} aria-label="Close">
+            <IconButton size="small" onClick={handleClose} aria-label={t("common.close")}>
               <CloseIcon fontSize="small" />
             </IconButton>
           </div>
@@ -145,13 +147,11 @@ export default function AuthenticationModal({
 
             <div className="ck-auth-quote">
               <h3>
-                Book in a minute.
+                {t("auth.quoteTitle1")}
                 <br />
-                No waiting.
+                {t("auth.quoteTitle2")}
               </h3>
-              <p>
-                Create an account, then choose your barber and time.
-              </p>
+              <p>{t("auth.quoteText")}</p>
             </div>
 
             <div className="ck-auth-perks">
@@ -166,17 +166,15 @@ export default function AuthenticationModal({
 
           <section className="ck-auth-form">
             <h2 id="auth-modal-title">
-              {isSignup ? "Create an account" : "Log in"}
+              {isSignup ? t("auth.createAccount") : t("auth.login")}
             </h2>
             <p className="sub">
-              {isSignup
-                ? "Just three details to get started."
-                : "Log in to see and manage your bookings."}
+              {isSignup ? t("auth.createAccountSub") : t("auth.loginSub")}
             </p>
 
             <div className="ck-auth-fields">
               <TextField
-                label="Username"
+                label={t("auth.username")}
                 value={memberNick}
                 onChange={(e) => setMemberNick(e.target.value)}
                 onKeyDown={handleKeyDown}
@@ -186,7 +184,7 @@ export default function AuthenticationModal({
 
               {isSignup ? (
                 <TextField
-                  label="Phone number"
+                  label={t("auth.phone")}
                   value={memberPhone}
                   onChange={(e) => setMemberPhone(e.target.value)}
                   onKeyDown={handleKeyDown}
@@ -197,7 +195,7 @@ export default function AuthenticationModal({
               ) : null}
 
               <TextField
-                label="Password"
+                label={t("auth.password")}
                 type="password"
                 value={memberPassword}
                 onChange={(e) => setMemberPassword(e.target.value)}
@@ -214,17 +212,17 @@ export default function AuthenticationModal({
                 onClick={submit}
                 fullWidth
               >
-                {isSignup ? "Create account" : "Log in"}
+                {isSignup ? t("auth.createAccountBtn") : t("auth.loginBtn")}
               </Button>
             </div>
 
             <div className="ck-auth-switch">
-              {isSignup ? "Already have an account?" : "Don't have an account?"}
+              {isSignup ? t("auth.alreadyHaveAccount") : t("auth.noAccount")}
               <button
                 type="button"
                 onClick={() => onSwitch(isSignup ? "login" : "signup")}
               >
-                {isSignup ? "Log in" : "Sign up"}
+                {isSignup ? t("auth.logIn") : t("auth.signUp")}
               </button>
             </div>
           </section>

@@ -12,6 +12,7 @@ import Loader from "../../components/common/Loader";
 import EmptyState from "../../components/common/EmptyState";
 
 import MemberService from "../../services/MemberService";
+import { useLanguage } from "../../hooks/useLanguage";
 import { Master } from "../../../lib/types/member";
 
 import "../../../styles/masters.css";
@@ -27,6 +28,7 @@ const mastersRetriever = createSelector(
 );
 
 export default function MastersPage() {
+  const { t } = useLanguage();
   const { setMasters } = actionDispatch(useDispatch());
   const { masters } = useSelector(mastersRetriever);
   const [loading, setLoading] = useState(true);
@@ -55,33 +57,29 @@ export default function MastersPage() {
     <div className="masters-page">
       <div className="ck-page-head">
         <Container maxWidth="lg">
-          <div className="crumb">Our team</div>
-          <h1>Our barbers</h1>
-          <p>
-            Every barber has a specialty. Choose who you want.
-          </p>
+          <div className="crumb">{t("masters.crumb")}</div>
+          <h1>{t("masters.title")}</h1>
+          <p>{t("masters.desc")}</p>
         </Container>
       </div>
 
       <div className="ck-page-body">
         <Container maxWidth="lg">
           {loading ? (
-            <Loader text="Loading masters…" />
+            <Loader text={t("masters.loading")} />
           ) : masters.length === 0 ? (
             <>
               <div className="ck-masters-note">
                 <InfoOutlinedIcon fontSize="small" />
                 <div>
-                  <b>No barbers added yet</b>
-                  Masters are created in the admin panel, but showing them to
-                  clients needs a public{" "}
-                  <code>GET /member/masters</code> endpoint on the backend. See
-                  BACKEND-NOTES.md for ready-to-paste code.
+                  <b>{t("masters.noneAddedTitle")}</b>
+                  {t("masters.noneAddedBody")}{" "}
+                  <code>GET /member/masters</code> {t("masters.noneAddedBodyEnd")}
                 </div>
               </div>
               <EmptyState
-                title="No barbers yet"
-                text="Once the endpoint is added, barbers will appear here automatically."
+                title={t("masters.emptyTitle")}
+                text={t("masters.emptyText")}
               />
             </>
           ) : (

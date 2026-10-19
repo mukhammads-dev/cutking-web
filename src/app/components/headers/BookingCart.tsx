@@ -109,6 +109,8 @@ export default function BookingCart(props: BookingCartProps) {
                 {cartItems.map((item) => (
                   <div key={item._id} className="ck-cart-row">
                     <img
+                      loading="lazy"
+                      decoding="async"
                       className="ck-cart-img"
                       src={buildImageUrl(item.image)}
                       alt={item.name}

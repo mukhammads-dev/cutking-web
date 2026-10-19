@@ -201,6 +201,8 @@ export default function BookingPage(props: BookingPageProps) {
                     {cartItems.map((item) => (
                       <div key={item._id} className="ck-summary-item">
                         <img
+                          loading="lazy"
+                          decoding="async"
                           src={buildImageUrl(item.image)}
                           alt={item.name}
                         />

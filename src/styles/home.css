@@ -480,6 +480,7 @@
    ================================================ */
 .ck-video-frame {
   position: relative;
+  width: 100%;
   border-radius: var(--r-xl);
   overflow: hidden;
   background: var(--dark);

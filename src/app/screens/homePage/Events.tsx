@@ -37,7 +37,13 @@ export default function Events() {
             tabIndex={0}
             onKeyDown={(e) => e.key === "Enter" && goBooking()}
           >
-            <img src={featuredEvent.image} alt="" aria-hidden="true" />
+            <img
+              loading="lazy"
+              decoding="async"
+              src={featuredEvent.image}
+              alt=""
+              aria-hidden="true"
+            />
             <span className="ck-offer-veil" />
 
             <span className="ck-offer-stamp">{featuredEvent.badge}</span>

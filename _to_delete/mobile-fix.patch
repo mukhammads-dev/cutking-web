@@ -1,0 +1,223 @@
+--- a/src/styles/booking.css
++++ b/src/styles/booking.css
+@@ -9,6 +9,8 @@
+   align-items: start;
+ }
+ 
++.ck-booking-grid > * { min-width: 0; }
++
+ /* ---- STEPS ---- */
+ .ck-steps {
+   display: flex;
+@@ -360,3 +362,82 @@
+   .ck-booking-grid { grid-template-columns: 1fr; }
+   .ck-summary { position: static; }
+ }
++
++@media (max-width: 640px) {
++  .ck-steps {
++    gap: 6px;
++    margin-bottom: 18px;
++  }
++
++  .ck-step {
++    padding: 7px 12px 7px 7px;
++    font-size: 11px;
++  }
++
++  .ck-step .num {
++    width: 20px;
++    height: 20px;
++    font-size: 10px;
++  }
++
++  .ck-step-sep { display: none; }
++
++  .ck-panel { margin-bottom: 14px; }
++
++  .ck-panel-head { padding: 13px 14px; }
++
++  .ck-panel-body { padding: 14px; }
++
++  .ck-master-pick {
++    grid-template-columns: repeat(2, minmax(0, 1fr));
++    gap: 10px;
++  }
++
++  .ck-master-pick .ck-master-card { padding: 14px 10px; }
++
++  .ck-master-pick .ck-master-avatar-wrap { margin-bottom: 10px; }
++
++  .ck-master-pick .ck-master-avatar {
++    width: 56px;
++    height: 56px;
++    border-width: 2px;
++  }
++
++  .ck-master-pick .ck-master-exp { margin-bottom: 7px; }
++
++  .ck-master-pick .ck-master-tags { margin-bottom: 0; }
++
++  .ck-master-pick .ck-master-desc { display: none; }
++
++  .ck-master-pick .ck-master-check { margin-top: 10px; }
++
++  .ck-slot-grid {
++    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
++    gap: 7px;
++  }
++
++  .ck-slot {
++    padding: 10px 0;
++    font-size: 12px;
++  }
++
++  .ck-date-row { gap: 7px; }
++
++  .ck-date-cell {
++    width: 56px;
++    padding: 10px 0;
++  }
++
++  .ck-date-cell .dd { font-size: 17px; }
++
++  .ck-summary-head { padding: 13px 14px; }
++
++  .ck-summary-body { padding: 14px; }
++
++  .ck-summary-item img {
++    width: 36px;
++    height: 36px;
++  }
++
++  .ck-summary-total .val { font-size: 20px; }
++}
+--- a/src/styles/navbar.css
++++ b/src/styles/navbar.css
+@@ -288,6 +288,33 @@
+   .ck-burger { display: inline-flex; }
+ }
+ 
++@media (max-width: 560px) {
++  .ck-navbar-inner { gap: 8px; }
++
++  .ck-logo { gap: 8px; }
++
++  .ck-logo-tag { display: none; }
++
++  .ck-nav-right { gap: 2px; }
++
++  .ck-lang-trigger {
++    gap: 3px;
++    padding: 4px 7px;
++    margin-right: 0;
++    font-size: 11px;
++  }
++
++  .ck-lang-trigger > svg:last-of-type { display: none; }
++
++  .ck-nav-avatar {
++    width: 30px;
++    height: 30px;
++    border-width: 1.5px;
++  }
++
++  .ck-nav-right .MuiIconButton-root { padding: 6px; }
++}
++
+ .ck-drawer {
+   width: 268px;
+   padding: 18px 14px;
+--- a/src/styles/home.css
++++ b/src/styles/home.css
+@@ -480,6 +480,7 @@
+    ================================================ */
+ .ck-video-frame {
+   position: relative;
++  width: 100%;
+   border-radius: var(--r-xl);
+   overflow: hidden;
+   background: var(--dark);
+--- a/src/app/components/cards/MasterCard.tsx
++++ b/src/app/components/cards/MasterCard.tsx
+@@ -54,6 +54,8 @@
+           loading="lazy"
+         />
+         <img
++          loading="lazy"
++          decoding="async"
+           className="ck-master-badge"
+           src="/icons/master-badge.svg"
+           alt=""
+--- a/src/app/components/headers/BookingCart.tsx
++++ b/src/app/components/headers/BookingCart.tsx
+@@ -109,6 +109,8 @@
+                 {cartItems.map((item) => (
+                   <div key={item._id} className="ck-cart-row">
+                     <img
++                      loading="lazy"
++                      decoding="async"
+                       className="ck-cart-img"
+                       src={buildImageUrl(item.image)}
+                       alt={item.name}
+--- a/src/app/screens/bookingPage/BookingSummary.tsx
++++ b/src/app/screens/bookingPage/BookingSummary.tsx
+@@ -71,7 +71,7 @@
+         ) : (
+           cartItems.map((item) => (
+             <div key={item._id} className="ck-summary-item">
+-              <img src={buildImageUrl(item.image)} alt={item.name} />
++              <img loading="lazy" decoding="async" src={buildImageUrl(item.image)} alt={item.name} />
+               <div className="info">
+                 <div className="nm">{item.name}</div>
+                 <div className="mt">
+--- a/src/app/screens/bookingPage/index.tsx
++++ b/src/app/screens/bookingPage/index.tsx
+@@ -201,6 +201,8 @@
+                     {cartItems.map((item) => (
+                       <div key={item._id} className="ck-summary-item">
+                         <img
++                          loading="lazy"
++                          decoding="async"
+                           src={buildImageUrl(item.image)}
+                           alt={item.name}
+                         />
+--- a/src/app/screens/myBookingsPage/BookingList.tsx
++++ b/src/app/screens/myBookingsPage/BookingList.tsx
+@@ -88,6 +88,8 @@
+                 return (
+                   <div key={item._id} className="ck-booking-row">
+                     <img
++                      loading="lazy"
++                      decoding="async"
+                       src={buildImageUrl(service?.serviceImages?.[0])}
+                       alt={service?.serviceName ?? "Service"}
+                     />
+--- a/src/app/screens/homePage/TopUsers.tsx
++++ b/src/app/screens/homePage/TopUsers.tsx
+@@ -33,6 +33,8 @@
+           {topUsers.slice(0, 8).map((user) => (
+             <div key={user._id} className="ck-user-chip">
+               <img
++                loading="lazy"
++                decoding="async"
+                 src={buildImageUrl(user.memberImage, "/icons/default-user.svg")}
+                 alt={user.memberNick}
+               />
+--- a/src/app/screens/homePage/Events.tsx
++++ b/src/app/screens/homePage/Events.tsx
+@@ -37,7 +37,13 @@
+             tabIndex={0}
+             onKeyDown={(e) => e.key === "Enter" && goBooking()}
+           >
+-            <img src={featuredEvent.image} alt="" aria-hidden="true" />
++            <img
++              loading="lazy"
++              decoding="async"
++              src={featuredEvent.image}
++              alt=""
++              aria-hidden="true"
++            />
+             <span className="ck-offer-veil" />
+ 
+             <span className="ck-offer-stamp">{featuredEvent.badge}</span>

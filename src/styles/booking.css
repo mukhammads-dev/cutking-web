@@ -9,6 +9,8 @@
   align-items: start;
 }
 
+.ck-booking-grid > * { min-width: 0; }
+
 /* ---- STEPS ---- */
 .ck-steps {
   display: flex;
@@ -359,4 +361,83 @@
 @media (max-width: 1000px) {
   .ck-booking-grid { grid-template-columns: 1fr; }
   .ck-summary { position: static; }
+}
+
+@media (max-width: 640px) {
+  .ck-steps {
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+
+  .ck-step {
+    padding: 7px 12px 7px 7px;
+    font-size: 11px;
+  }
+
+  .ck-step .num {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+
+  .ck-step-sep { display: none; }
+
+  .ck-panel { margin-bottom: 14px; }
+
+  .ck-panel-head { padding: 13px 14px; }
+
+  .ck-panel-body { padding: 14px; }
+
+  .ck-master-pick {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .ck-master-pick .ck-master-card { padding: 14px 10px; }
+
+  .ck-master-pick .ck-master-avatar-wrap { margin-bottom: 10px; }
+
+  .ck-master-pick .ck-master-avatar {
+    width: 56px;
+    height: 56px;
+    border-width: 2px;
+  }
+
+  .ck-master-pick .ck-master-exp { margin-bottom: 7px; }
+
+  .ck-master-pick .ck-master-tags { margin-bottom: 0; }
+
+  .ck-master-pick .ck-master-desc { display: none; }
+
+  .ck-master-pick .ck-master-check { margin-top: 10px; }
+
+  .ck-slot-grid {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 7px;
+  }
+
+  .ck-slot {
+    padding: 10px 0;
+    font-size: 12px;
+  }
+
+  .ck-date-row { gap: 7px; }
+
+  .ck-date-cell {
+    width: 56px;
+    padding: 10px 0;
+  }
+
+  .ck-date-cell .dd { font-size: 17px; }
+
+  .ck-summary-head { padding: 13px 14px; }
+
+  .ck-summary-body { padding: 14px; }
+
+  .ck-summary-item img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .ck-summary-total .val { font-size: 20px; }
 }

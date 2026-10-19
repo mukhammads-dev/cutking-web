@@ -71,7 +71,7 @@ export default function BookingSummary(props: BookingSummaryProps) {
         ) : (
           cartItems.map((item) => (
             <div key={item._id} className="ck-summary-item">
-              <img src={buildImageUrl(item.image)} alt={item.name} />
+              <img loading="lazy" decoding="async" src={buildImageUrl(item.image)} alt={item.name} />
               <div className="info">
                 <div className="nm">{item.name}</div>
                 <div className="mt">

@@ -33,6 +33,8 @@ export default function TopUsers() {
           {topUsers.slice(0, 8).map((user) => (
             <div key={user._id} className="ck-user-chip">
               <img
+                loading="lazy"
+                decoding="async"
                 src={buildImageUrl(user.memberImage, "/icons/default-user.svg")}
                 alt={user.memberNick}
               />

@@ -54,6 +54,8 @@ export default function MasterCard({
           loading="lazy"
         />
         <img
+          loading="lazy"
+          decoding="async"
           className="ck-master-badge"
           src="/icons/master-badge.svg"
           alt=""

@@ -88,6 +88,8 @@ export default function BookingList({
                 return (
                   <div key={item._id} className="ck-booking-row">
                     <img
+                      loading="lazy"
+                      decoding="async"
                       src={buildImageUrl(service?.serviceImages?.[0])}
                       alt={service?.serviceName ?? "Service"}
                     />

@@ -288,6 +288,33 @@ html.ck-hero-over .ck-navbar.on-home .ck-lang-trigger:hover {
   .ck-burger { display: inline-flex; }
 }
 
+@media (max-width: 560px) {
+  .ck-navbar-inner { gap: 8px; }
+
+  .ck-logo { gap: 8px; }
+
+  .ck-logo-tag { display: none; }
+
+  .ck-nav-right { gap: 2px; }
+
+  .ck-lang-trigger {
+    gap: 3px;
+    padding: 4px 7px;
+    margin-right: 0;
+    font-size: 11px;
+  }
+
+  .ck-lang-trigger > svg:last-of-type { display: none; }
+
+  .ck-nav-avatar {
+    width: 30px;
+    height: 30px;
+    border-width: 1.5px;
+  }
+
+  .ck-nav-right .MuiIconButton-root { padding: 6px; }
+}
+
 .ck-drawer {
   width: 268px;
   padding: 18px 14px;
